@@ -6,12 +6,12 @@ import { useAuth } from '../context/AuthContext';
 
 export function LoginPage() {
   const { login } = useAuth();
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
-  const [email,   setEmail]   = useState('');
-  const [pass,    setPass]    = useState('');
-  const [showP,   setShowP]   = useState(false);
-  const [err,     setErr]     = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [showP, setShowP] = useState(false);
+  const [err, setErr] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -21,6 +21,8 @@ export function LoginPage() {
     setLoading(true);
     await new Promise(r => setTimeout(r, 900)); // simulate network
     const ok = login(email, pass);
+    // Store token in sessionStorage
+    sessionStorage.setItem("token", "1234567890abcdef");
     if (ok) {
       navigate('/dashboard', { replace: true });
     } else {
@@ -39,14 +41,14 @@ export function LoginPage() {
         @keyframes ringRotate { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
         .ring { position:absolute; top:50%; left:50%; border-radius:50%; transform:translate(-50%,-50%); }
       `}</style>
-      <div className="ring" style={{ width:650, height:650, border:'1px dashed rgba(14,165,233,0.1)', animation:'ringRotate 50s linear infinite' }} />
-      <div className="ring" style={{ width:440, height:440, border:'1px solid rgba(255,255,255,0.04)', animation:'ringRotate 30s linear infinite reverse' }} />
+      <div className="ring" style={{ width: 650, height: 650, border: '1px dashed rgba(14,165,233,0.1)', animation: 'ringRotate 50s linear infinite' }} />
+      <div className="ring" style={{ width: 440, height: 440, border: '1px solid rgba(255,255,255,0.04)', animation: 'ringRotate 30s linear infinite reverse' }} />
 
       {/* ── Glow blobs ── */}
       <div className="absolute top-0 right-0 w-72 h-72 rounded-full pointer-events-none"
-        style={{ background:'radial-gradient(circle,rgba(14,165,233,0.08) 0%,transparent 70%)' }} />
+        style={{ background: 'radial-gradient(circle,rgba(14,165,233,0.08) 0%,transparent 70%)' }} />
       <div className="absolute bottom-0 left-0 w-60 h-60 rounded-full pointer-events-none"
-        style={{ background:'radial-gradient(circle,rgba(30,58,138,0.12) 0%,transparent 70%)' }} />
+        style={{ background: 'radial-gradient(circle,rgba(30,58,138,0.12) 0%,transparent 70%)' }} />
 
       {/* ── Card ── */}
       <div
@@ -64,7 +66,7 @@ export function LoginPage() {
         <div className="flex flex-col items-center mb-9">
           <div
             className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
-            style={{ background:'linear-gradient(135deg,#1e3a8a,#0ea5e9)', boxShadow:'0 8px 24px rgba(37,99,235,0.38)' }}
+            style={{ background: 'linear-gradient(135deg,#1e3a8a,#0ea5e9)', boxShadow: '0 8px 24px rgba(37,99,235,0.38)' }}
           >
             <FlaskConical size={28} className="text-white" />
           </div>
@@ -78,7 +80,7 @@ export function LoginPage() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Email */}
           <div>
-            <label className="form-label" style={{ color:'rgba(255,255,255,0.45)' }}>Email Address</label>
+            <label className="form-label" style={{ color: 'rgba(255,255,255,0.45)' }}>Email Address</label>
             <div className="relative">
               <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
               <input
@@ -87,9 +89,9 @@ export function LoginPage() {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="admin@gmail.com"
                 className="input"
-                style={{ paddingLeft:34, background:'rgba(255,255,255,0.07)', border:'1.5px solid rgba(255,255,255,0.12)', color:'#fff', height:46 }}
-                onFocus={e  => { e.target.style.borderColor='rgba(14,165,233,0.6)'; e.target.style.background='rgba(255,255,255,0.1)'; }}
-                onBlur={e   => { e.target.style.borderColor='rgba(255,255,255,0.12)'; e.target.style.background='rgba(255,255,255,0.07)'; }}
+                style={{ paddingLeft: 34, background: 'rgba(255,255,255,0.07)', border: '1.5px solid rgba(255,255,255,0.12)', color: '#fff', height: 46 }}
+                onFocus={e => { e.target.style.borderColor = 'rgba(14,165,233,0.6)'; e.target.style.background = 'rgba(255,255,255,0.1)'; }}
+                onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; e.target.style.background = 'rgba(255,255,255,0.07)'; }}
                 required
               />
             </div>
@@ -97,7 +99,7 @@ export function LoginPage() {
 
           {/* Password */}
           <div>
-            <label className="form-label" style={{ color:'rgba(255,255,255,0.45)' }}>Password</label>
+            <label className="form-label" style={{ color: 'rgba(255,255,255,0.45)' }}>Password</label>
             <div className="relative">
               <Lock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
               <input
@@ -106,9 +108,9 @@ export function LoginPage() {
                 onChange={e => setPass(e.target.value)}
                 placeholder="admin@123"
                 className="input"
-                style={{ paddingLeft:34, paddingRight:42, background:'rgba(255,255,255,0.07)', border:'1.5px solid rgba(255,255,255,0.12)', color:'#fff', height:46 }}
-                onFocus={e  => { e.target.style.borderColor='rgba(14,165,233,0.6)'; e.target.style.background='rgba(255,255,255,0.1)'; }}
-                onBlur={e   => { e.target.style.borderColor='rgba(255,255,255,0.12)'; e.target.style.background='rgba(255,255,255,0.07)'; }}
+                style={{ paddingLeft: 34, paddingRight: 42, background: 'rgba(255,255,255,0.07)', border: '1.5px solid rgba(255,255,255,0.12)', color: '#fff', height: 46 }}
+                onFocus={e => { e.target.style.borderColor = 'rgba(14,165,233,0.6)'; e.target.style.background = 'rgba(255,255,255,0.1)'; }}
+                onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.12)'; e.target.style.background = 'rgba(255,255,255,0.07)'; }}
                 required
               />
               <button
@@ -125,7 +127,7 @@ export function LoginPage() {
           {err && (
             <div
               className="flex items-center gap-2 text-[13px] text-red-300 px-3 py-2.5 rounded-xl"
-              style={{ background:'rgba(239,68,68,0.12)', border:'1px solid rgba(239,68,68,0.25)' }}
+              style={{ background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.25)' }}
             >
               <AlertCircle size={14} className="flex-shrink-0" />
               {err}
