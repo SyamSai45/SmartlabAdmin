@@ -1,5 +1,5 @@
 // src/components/layout/Sidebar.js
-import React, { useState } from 'react';
+import React, { Activity, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, MessageSquare, FileText,
@@ -9,94 +9,114 @@ import {
   FileSpreadsheet,
   ClipboardList,
   Layers3,
-  PlusCircle
+  PlusCircle,
+  FileBadge,
+  Star,
+  BarChart3,
+  Info,
+  MonitorPlay,
+  Home,
+  Megaphone,
+  ShieldCheck,
+  Gem,
+  Target,
+  LayoutTemplate,
+  MonitorSmartphone,
+  BookOpen,
+  Send,
+  Clock3,
+  GitBranch,
+  Wrench,
+  Users,
+  BriefcaseBusiness,
+  HelpCircle,
+  Lightbulb,
+  Headset,
+  ActivityIcon
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppContext';
 
 const NAV_ITEMS = [
-  {
-    to: "/dashboard",
-    label: "Dashboard",
-    Icon: LayoutDashboard,
-  },
+  { to: "/dashboard", label: "Dashboard", Icon: LayoutDashboard },
 
-  {
-    to: "/dashboard/categories",
-    label: "Category",
-    Icon: FolderOpen,
-  },
+  { to: "/dashboard/categories", label: "Category", Icon: FolderOpen },
 
-  {
-    to: "/dashboard/brands",
-    label: "Brands",
-    Icon: BadgeCheck,
-  },
+  { to: "/dashboard/brands", label: "Brands", Icon: BadgeCheck },
 
-  // Products Dropdown
   {
     label: "Products",
     Icon: Package,
     isDropdown: true,
     children: [
-      {
-        to: "/dashboard/addproduct",
-        label: "Create Product",
-        icon: PlusCircle,
-      },
-      {
-        to: "/dashboard/products",
-        label: "All Products",
-        icon: Package,
-      },
-      // {
-      //   to: "/dashboard/products/category",
-      //   label: "Products By Category",
-      //   icon: Layers3,
-      // },
+      { to: "/dashboard/addproduct", label: "Create Product", icon: PlusCircle },
+      { to: "/dashboard/products", label: "All Products", icon: Package },
     ],
   },
 
-  // Contact Management Dropdown
+  {
+    label: "Home Sections",
+    Icon: Home,
+    isDropdown: true,
+    children: [
+      { to: "/dashboard/home-hero", label: "Home Hero", icon: MonitorPlay },
+      { to: "/dashboard/home-about", label: "Home About", icon: Info },
+      { to: "/dashboard/home-counts", label: "Home Counts", icon: BarChart3 },
+      { to: "/dashboard/home-reviews", label: "Home Reviews", icon: Star },
+      { to: "/dashboard/home-details", label: "Home Details", icon: FileBadge },
+    ],
+  },
+
+  {
+    label: "About Sections",
+    Icon: BookOpen,
+    isDropdown: true,
+    children: [
+      { to: "/dashboard/about-hero", label: "About Hero", icon: MonitorSmartphone },
+      { to: "/dashboard/about-overview", label: "About Overview", icon: LayoutTemplate },
+      { to: "/dashboard/about-mission", label: "About Mission", icon: Target },
+      { to: "/dashboard/about-values", label: "About Values", icon: Gem },
+      { to: "/dashboard/about-choose", label: "Why Choose Us", icon: ShieldCheck },
+      { to: "/dashboard/about-cta", label: "About CTA", icon: Megaphone },
+    ],
+  },
+
+  {
+    label: "Service Sections",
+    Icon: BriefcaseBusiness,
+    isDropdown: true,
+    children: [
+      { to: "/dashboard/service-hero", label: "Service Hero", icon: MonitorPlay },
+      { to: "/dashboard/service-who-we-are", label: "Who We Are", icon: Users },
+      { to: "/dashboard/service-services", label: "Services", icon: Wrench },
+      { to: "/dashboard/service-steps", label: "Steps", icon: GitBranch },
+      { to: "/dashboard/service-availability", label: "Availability", icon: Clock3 },
+      { to: "/dashboard/service-request", label: "Request", icon: Send },
+    ],
+  },
+
+  {
+    label: "Support Sections",
+    Icon: Headset,
+    isDropdown: true,
+    children: [
+      { to: "/dashboard/support-hero", label: "Support Hero", icon: MonitorPlay },
+      { to: "/dashboard/support-quick-points", label: "Quick Points", icon: Lightbulb },
+      { to: "/dashboard/support-solutions", label: "Solutions", icon: ShieldCheck },
+      { to: "/dashboard/support-performance", label: "Performance", icon: ActivityIcon },
+      { to: "/dashboard/support-faqs", label: "FAQs", icon: HelpCircle },
+      { to: "/dashboard/support-cta", label: "CTA", icon: Megaphone },
+    ],
+  },
+
   {
     label: "Contact Management",
     Icon: MessageSquare,
     isDropdown: true,
     children: [
-      {
-        to: "/dashboard/enquiry",
-        label: "Show Enquiry",
-        icon: ClipboardList,
-        badgeKey: "enquiry",
-      },
-
-      {
-        to: "/dashboard/contact-forms",
-        label: "Contact",
-        icon: Mail,
-        badgeKey: "contacts",
-      },
-
-      {
-        to: "/dashboard/get-in-touch",
-        label: "Get In Touch",
-        icon: PhoneCall,
-        badgeKey: "touch",
-      },
-
-      {
-        to: "/dashboard/resume",
-        label: "Resume",
-        icon: FileText,
-        badgeKey: "resume",
-      },
-
-      {
-        to: "/dashboard/quote-requests",
-        label: "Quote Requests",
-        icon: FileSpreadsheet,
-        badgeKey: "quotes",
-      },
+      { to: "/dashboard/contact-forms", label: "Contact", icon: Mail, badgeKey: "contacts" },
+      { to: "/dashboard/get-in-touch", label: "Get In Touch", icon: PhoneCall, badgeKey: "touch" },
+      { to: "/dashboard/resume", label: "Resume", icon: FileText, badgeKey: "resume" },
     ],
   },
 ];

@@ -23,18 +23,18 @@ function Header({ onMenuClick }) {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   const title = PAGE_TITLES[location.pathname] || 'Admin';
-  
+
   // Get unread counts
   const unreadContacts = contacts?.filter(c => !c.read).length || 0;
   const unreadQuotes = quotes?.filter(q => !q.read).length || 0;
   const totalUnread = unreadContacts + unreadQuotes;
-  
+
   // Get recent notifications (combine contacts and quotes)
   const getRecentNotifications = () => {
     const notifications = [];
-    
+
     contacts?.filter(c => !c.read).forEach(contact => {
       notifications.push({
         id: `contact-${contact.id}`,
@@ -45,7 +45,7 @@ function Header({ onMenuClick }) {
         link: '/dashboard/contact-forms'
       });
     });
-    
+
     quotes?.filter(q => !q.read).forEach(quote => {
       notifications.push({
         id: `quote-${quote.id}`,
@@ -56,16 +56,20 @@ function Header({ onMenuClick }) {
         link: '/dashboard/quote-requests'
       });
     });
-    
+
     return notifications.sort((a, b) => new Date(b.time) - new Date(a.time)).slice(0, 5);
   };
-  
+
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    await refreshData();
-    setTimeout(() => setIsRefreshing(false), 1000);
+
+    window.location.reload();
+
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 1000);
   };
-  
+
   // Toggle fullscreen
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -78,17 +82,17 @@ function Header({ onMenuClick }) {
       setIsFullscreen(false);
     }
   };
-  
+
   // Listen for fullscreen change events
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
     };
-    
+
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
-  
+
   // Handle responsive
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -96,7 +100,7 @@ function Header({ onMenuClick }) {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-  
+
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -107,33 +111,33 @@ function Header({ onMenuClick }) {
         setShowNotif(false);
       }
     };
-    
+
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [showAdminDropdown, showNotif]);
-  
+
   const handleLogout = async () => {
     await logout();
     sessionStorage.clear();
     navigate('/');
   };
-  
+
   const handleSettings = () => {
     navigate('/dashboard/settings');
     setShowAdminDropdown(false);
   };
-  
+
   const handleProfile = () => {
     navigate('/dashboard/profile');
     setShowAdminDropdown(false);
   };
-  
+
   return (
     <header className="sticky top-0 z-30 flex items-center justify-between gap-4 px-4 sm:px-6 h-16 bg-white border-b border-slate-200 shadow-sm flex-shrink-0">
       <div className="flex items-center gap-3 flex-1 min-w-0">
         {/* Mobile menu button */}
-        <button 
-          className="btn-icon lg:hidden hover:bg-slate-100 rounded-lg p-2 transition-colors" 
+        <button
+          className="btn-icon lg:hidden hover:bg-slate-100 rounded-lg p-2 transition-colors"
           onClick={onMenuClick}
           aria-label="Toggle menu"
         >
@@ -149,20 +153,20 @@ function Header({ onMenuClick }) {
       {/* Actions - Right side */}
       <div className="flex items-center gap-1 sm:gap-2">
         {/* Refresh button */}
-        <button 
+        <button
           className="btn-icon hover:bg-slate-100 rounded-lg p-2 transition-colors relative"
           onClick={handleRefresh}
           disabled={isRefreshing}
           aria-label="Refresh data"
         >
-          <RefreshCw 
-            size={17} 
-            className={`text-slate-500 ${isRefreshing ? 'animate-spin' : ''}`} 
+          <RefreshCw
+            size={17}
+            className={`text-slate-500 ${isRefreshing ? 'animate-spin' : ''}`}
           />
         </button>
 
         {/* Fullscreen toggle */}
-        <button 
+        <button
           className="btn-icon hover:bg-slate-100 rounded-lg p-2 transition-colors hidden sm:flex"
           onClick={toggleFullscreen}
           aria-label="Toggle fullscreen"
@@ -176,7 +180,7 @@ function Header({ onMenuClick }) {
 
         {/* Notification bell */}
         <div className="relative notif-dropdown">
-          <button 
+          <button
             className="btn-icon hover:bg-slate-100 rounded-lg p-2 transition-colors relative"
             onClick={() => setShowNotif(v => !v)}
             aria-label="Notifications"
@@ -190,7 +194,7 @@ function Header({ onMenuClick }) {
           {/* Notifications dropdown */}
           {showNotif && (
             <>
-              <div 
+              <div
                 className="fixed inset-0 z-40 lg:hidden"
                 onClick={() => setShowNotif(false)}
               />
@@ -209,7 +213,7 @@ function Header({ onMenuClick }) {
                         {totalUnread} new
                       </span>
                     )}
-                    <button 
+                    <button
                       onClick={() => setShowNotif(false)}
                       className="lg:hidden text-slate-400 hover:text-slate-600"
                     >
@@ -217,7 +221,7 @@ function Header({ onMenuClick }) {
                     </button>
                   </div>
                 </div>
-                
+
                 <div className="overflow-y-auto max-h-[calc(80vh-60px)]">
                   {getRecentNotifications().length > 0 ? (
                     getRecentNotifications().map(notif => (
@@ -246,10 +250,10 @@ function Header({ onMenuClick }) {
                     </div>
                   )}
                 </div>
-                
+
                 {totalUnread > 0 && (
                   <div className="px-4 py-2 border-t border-slate-100 bg-slate-50">
-                    <button 
+                    <button
                       className="w-full text-center text-xs text-blue-600 hover:text-blue-700 font-medium"
                       onClick={() => {
                         setShowNotif(false);
@@ -267,7 +271,7 @@ function Header({ onMenuClick }) {
 
         {/* Admin Dropdown */}
         <div className="relative admin-dropdown">
-          <button 
+          <button
             className="flex items-center gap-2 hover:bg-slate-100 rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 transition-colors"
             onClick={() => setShowAdminDropdown(v => !v)}
             aria-label="Admin menu"
@@ -283,16 +287,16 @@ function Header({ onMenuClick }) {
                 {user?.role || 'Administrator'}
               </p>
             </div>
-            <ChevronDown 
-              size={16} 
-              className={`text-slate-400 transition-transform duration-200 hidden sm:block ${showAdminDropdown ? 'rotate-180' : ''}`} 
+            <ChevronDown
+              size={16}
+              className={`text-slate-400 transition-transform duration-200 hidden sm:block ${showAdminDropdown ? 'rotate-180' : ''}`}
             />
           </button>
 
           {/* Admin Dropdown Menu */}
           {showAdminDropdown && (
             <>
-              <div 
+              <div
                 className="fixed inset-0 z-40 lg:hidden"
                 onClick={() => setShowAdminDropdown(false)}
               />
@@ -326,7 +330,7 @@ function Header({ onMenuClick }) {
                     <User size={16} className="text-slate-400" />
                     <span>My Profile</span>
                   </button>
-                  
+
                   <button
                     onClick={handleSettings}
                     className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
@@ -334,9 +338,9 @@ function Header({ onMenuClick }) {
                     <Settings size={16} className="text-slate-400" />
                     <span>Settings</span>
                   </button>
-                  
+
                   <div className="border-t border-slate-100 my-1"></div>
-                  
+
                   <button
                     onClick={handleLogout}
                     className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"

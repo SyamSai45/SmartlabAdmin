@@ -8,14 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // ─── Constants ─────────────────────────────────────────────────────────────
-const API_BASE_URL = 'https://smartlabtechbackend.onrender.com/api';
-const STATIC_BASE_URL = 'https://smartlabtechbackend.onrender.com';
+const API_BASE_URL = 'http://localhost:5000/api';
+const STATIC_BASE_URL = 'http://localhost:5000';
 
 // ─── Helper Functions ──────────────────────────────────────────────────────
 const imgUrl = (path) => {
   if (!path) return null;
   const cleanPath = path.replace(/^[\\/]+/, '').replace(/\\/g, '/');
-  return `${STATIC_BASE_URL}/${cleanPath}`;
+  return `${cleanPath}`;
 };
 
 const fmtPrice = (v) => {

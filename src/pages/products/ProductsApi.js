@@ -1,8 +1,8 @@
 // src/pages/products/productsApi.js
 import axios from 'axios';
 
-export const API_BASE_URL = 'https://smartlabtechbackend.onrender.com/api';
-export const STATIC_BASE_URL = 'https://smartlabtechbackend.onrender.com';
+export const API_BASE_URL = 'http://localhost:5000/api';
+export const STATIC_BASE_URL = 'http://localhost:5000';
 
 // Axios instance — token read fresh on every request via interceptor
 export const apiClient = axios.create({ baseURL: API_BASE_URL });
