@@ -13,7 +13,7 @@ import {
 
 // ─── Axios instance ──────────────────────────────────────────────────────────
 // Token is read fresh on every request via the interceptor, so it never goes stale.
-const api = axios.create({ baseURL: "http://localhost:5000/api" });
+const api = axios.create({ baseURL: "https://smartlabtechbackend-p5h6.onrender.com/api" });
 
 api.interceptors.request.use((config) => {
   const token = sessionStorage.getItem("token");
@@ -113,7 +113,7 @@ const BrandsPage = () => {
   const handleEdit = (item) => {
     setEditId(item._id);
     setFormData({ name: item.name, description: item.description, website: item.website, logo: null });
-    setPreview(item.logo ? `http://localhost:5000/${item.logo.replace(/\\/g, "/")}` : "");
+    setPreview(item.logo ? `https://smartlabtechbackend-p5h6.onrender.com/${item.logo.replace(/\\/g, "/")}` : "");
     setError("");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -125,7 +125,7 @@ const BrandsPage = () => {
   );
 
   const logoUrl = (logo) =>
-    logo ? `http://localhost:5000/${logo.replace(/\\/g, "/")}` : null;
+    logo ? `https://smartlabtechbackend-p5h6.onrender.com/${logo.replace(/\\/g, "/")}` : null;
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
