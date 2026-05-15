@@ -42,7 +42,7 @@ const NAV_ITEMS = [
 
   { to: "/dashboard/categories", label: "Category", Icon: FolderOpen },
 
-  { to: "/dashboard/brands", label: "Brands", Icon: BadgeCheck },
+  { to: "/dashboard/priciples", label: "Priciples", Icon: BadgeCheck },
 
   {
     label: "Products",
@@ -116,7 +116,6 @@ const NAV_ITEMS = [
     children: [
       { to: "/dashboard/contacts", label: "Contact", icon: Mail, badgeKey: "contacts" },
       { to: "/dashboard/get-in-touch", label: "Get In Touch", icon: PhoneCall, badgeKey: "touch" },
-      { to: "/dashboard/resume", label: "Resume", icon: FileText, badgeKey: "resume" },
     ],
   },
 ];

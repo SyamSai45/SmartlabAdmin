@@ -8,8 +8,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 // ─── Constants ─────────────────────────────────────────────────────────────
-const API_BASE_URL = 'http://31.97.228.17:5101/api';
-const STATIC_BASE_URL = 'http://31.97.228.17:5101';
+const API_BASE_URL = 'https://smartlabtechbackend-p5h6.onrender.com/api';
+const STATIC_BASE_URL = 'https://smartlabtechbackend-p5h6.onrender.com';
 
 // ─── Helper Functions ──────────────────────────────────────────────────────
 const imgUrl = (path) => {
@@ -421,9 +421,9 @@ export function ProductForm() {
                     onChange={e => set('name', e.target.value)} 
                   />
                 </Field>
-                <Field label="Brand" required error={fieldErrors.brand}>
+                <Field label="Principle" required error={fieldErrors.brand}>
                   <Select value={form.brand} onChange={e => set('brand', e.target.value)}>
-                    <option value="">Select Brand</option>
+                    <option value="">Select Principle</option>
                     {brands?.map(b => (
                       <option key={b._id} value={b._id}>{b.name}</option>
                     ))}

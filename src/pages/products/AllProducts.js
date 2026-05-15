@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // ─── Constants ─────────────────────────────────────────────────────────────
-const API_BASE_URL = 'http://31.97.228.17:5101/api';
-const STATIC_BASE_URL = 'http://31.97.228.17:5101';
+const API_BASE_URL = 'https://smartlabtechbackend-p5h6.onrender.com/api';
+const STATIC_BASE_URL = 'https://smartlabtechbackend-p5h6.onrender.com';
 
 // ─── Helper Functions ──────────────────────────────────────────────────────
 const imgUrl = (path) => {
@@ -233,7 +233,7 @@ export function AllProducts() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Search by name or brand…"
+              placeholder="Search by name or principle....."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
@@ -263,7 +263,7 @@ export function AllProducts() {
               onChange={(e) => setFilterBrand(e.target.value)}
               className="px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white flex-1 sm:flex-none"
             >
-              <option value="all">All Brands</option>
+              <option value="all">All Principles</option>
               {brands?.map(b => (
                 <option key={b._id} value={b._id}>{b.name}</option>
               ))}
@@ -396,7 +396,7 @@ export function AllProducts() {
             <table className="w-full text-sm">
               <thead className="bg-slate-50 border-b border-slate-100">
                 <tr>
-                  {['Product', 'Brand', 'Category', 'Price', 'Stock', 'Status', 'Featured', 'Actions'].map(h => (
+                  {['Product', 'Principle', 'Category', 'Price', 'Stock', 'Status', 'Featured', 'Actions'].map(h => (
                     <th key={h} className="text-left text-[11px] font-bold text-slate-500 uppercase tracking-wider px-5 py-3 whitespace-nowrap">{h}</th>
                   ))}
                 </tr>

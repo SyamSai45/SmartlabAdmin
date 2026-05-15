@@ -13,7 +13,7 @@ import {
 
 // ─── Axios instance ──────────────────────────────────────────────────────────
 // Token is read fresh on every request via the interceptor, so it never goes stale.
-const api = axios.create({ baseURL: "http://31.97.228.17:5101/api" });
+const api = axios.create({ baseURL: "https://smartlabtechbackend-p5h6.onrender.com/api" });
 
 api.interceptors.request.use((config) => {
   const token = sessionStorage.getItem("token");
@@ -113,7 +113,7 @@ const BrandsPage = () => {
   const handleEdit = (item) => {
     setEditId(item._id);
     setFormData({ name: item.name, description: item.description, website: item.website, logo: null });
-    setPreview(item.logo ? `http://31.97.228.17:5101/${item.logo.replace(/\\/g, "/")}` : "");
+    setPreview(item.logo ? `https://smartlabtechbackend-p5h6.onrender.com/${item.logo.replace(/\\/g, "/")}` : "");
     setError("");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -125,7 +125,7 @@ const BrandsPage = () => {
   );
 
   const logoUrl = (logo) =>
-    logo ? `http://31.97.228.17:5101/${logo.replace(/\\/g, "/")}` : null;
+    logo ? `https://smartlabtechbackend-p5h6.onrender.com/${logo.replace(/\\/g, "/")}` : null;
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
@@ -135,12 +135,12 @@ const BrandsPage = () => {
       <div className="bg-gradient-to-r from-slate-900 to-sky-700 rounded-3xl p-8 mb-8 text-white shadow-xl">
         <div className="flex items-center justify-between flex-wrap gap-5">
           <div>
-            <h1 className="text-4xl font-bold mb-2">Brands Management</h1>
-            <p className="text-slate-200">Manage all laboratory brands</p>
+            <h1 className="text-4xl font-bold mb-2">Principles Management</h1>
+            <p className="text-slate-200">Manage all laboratory principles</p>
           </div>
           <div className="bg-white/10 backdrop-blur-md rounded-2xl px-6 py-4">
             <h2 className="text-3xl font-bold">{brands.length}</h2>
-            <p className="text-sm text-slate-200">Total Brands</p>
+            <p className="text-sm text-slate-200">Total Principles</p>
           </div>
         </div>
       </div>
@@ -150,7 +150,7 @@ const BrandsPage = () => {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <Building2 className="text-sky-600" />
-            <h2 className="text-2xl font-bold">{editId ? "Update Brand" : "Create Brand"}</h2>
+            <h2 className="text-2xl font-bold">{editId ? "Update Principle" : "Create Principle"}</h2>
           </div>
           {editId && (
             <button
@@ -173,13 +173,13 @@ const BrandsPage = () => {
         <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-5">
           {/* Name */}
           <div>
-            <label className="font-semibold text-sm text-slate-600 block mb-2">Brand Name</label>
+            <label className="font-semibold text-sm text-slate-600 block mb-2">Principle Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Enter brand name"
+              placeholder="Enter principle name"
               required
               className="w-full border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500"
             />
@@ -213,7 +213,7 @@ const BrandsPage = () => {
 
           {/* Logo */}
           <div className="md:col-span-2">
-            <label className="font-semibold text-sm text-slate-600 block mb-2">Brand Logo</label>
+            <label className="font-semibold text-sm text-slate-600 block mb-2">Principle Logo</label>
             <label className="border-2 border-dashed border-slate-300 rounded-2xl p-8 flex flex-col items-center justify-center cursor-pointer hover:border-sky-500 transition-all">
               <ImageIcon className="text-slate-400 mb-3" />
               <p className="text-sm text-slate-500">Click to upload logo</p>
@@ -252,7 +252,7 @@ const BrandsPage = () => {
               className="bg-gradient-to-r from-slate-900 to-sky-700 hover:scale-[1.02] transition-all duration-300 text-white px-8 py-3 rounded-xl flex items-center gap-2 font-semibold shadow-lg disabled:opacity-60"
             >
               <Plus size={18} />
-              {loading ? "Processing..." : editId ? "Update Brand" : "Create Brand"}
+              {loading ? "Processing..." : editId ? "Update Principle" : "Create Principle"}
             </button>
             {editId && (
               <button
@@ -272,7 +272,7 @@ const BrandsPage = () => {
         <Search className="text-slate-400 shrink-0" size={20} />
         <input
           type="text"
-          placeholder="Search brands..."
+          placeholder="Search principles..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="w-full outline-none"
@@ -301,7 +301,7 @@ const BrandsPage = () => {
       {filteredBrands.length === 0 && (
         <div className="text-center py-16">
           <Building2 size={60} className="mx-auto text-slate-300 mb-4" />
-          <h2 className="text-2xl font-bold text-slate-500">No Brands Found</h2>
+          <h2 className="text-2xl font-bold text-slate-500">No Principles Found</h2>
         </div>
       )}
     </div>

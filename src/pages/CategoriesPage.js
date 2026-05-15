@@ -22,7 +22,7 @@ const Categories = () => {
   const fetchCategories = async () => {
     try {
       const res = await axios.get(
-        "http://31.97.228.17:5101/api/categories",
+        "https://smartlabtechbackend-p5h6.onrender.com/api/categories",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ const Categories = () => {
 
       if (editId) {
         await axios.put(
-          `http://31.97.228.17:5101/api/categories/${editId}`,
+          `https://smartlabtechbackend-p5h6.onrender.com/api/categories/${editId}`,
           payload,
           {
             headers: {
@@ -64,7 +64,7 @@ const Categories = () => {
         );
       } else {
         await axios.post(
-          "http://31.97.228.17:5101/api/categories",
+          "https://smartlabtechbackend-p5h6.onrender.com/api/categories",
           payload,
           {
             headers: {
@@ -100,7 +100,7 @@ const Categories = () => {
 
     try {
       await axios.delete(
-        `http://31.97.228.17:5101/api/categories/${id}`,
+        `https://smartlabtechbackend-p5h6.onrender.com/api/categories/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

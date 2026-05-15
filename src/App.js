@@ -76,7 +76,7 @@ const AppRoutes = () => {
         />
 
         <Route
-          path="brands"
+          path="priciples"
           element={<BrandsPage />}
         />
 
