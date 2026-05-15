@@ -62,8 +62,8 @@ const NAV_ITEMS = [
       { to: "/dashboard/home-hero", label: "Home Hero", icon: MonitorPlay },
       { to: "/dashboard/home-about", label: "Home About", icon: Info },
       { to: "/dashboard/home-counts", label: "Home Counts", icon: BarChart3 },
+      { to: "/dashboard/home-details", label: "Home testimonial Details", icon: FileBadge },
       { to: "/dashboard/home-reviews", label: "Home Reviews", icon: Star },
-      { to: "/dashboard/home-details", label: "Home Details", icon: FileBadge },
     ],
   },
 
@@ -74,9 +74,9 @@ const NAV_ITEMS = [
     children: [
       { to: "/dashboard/about-hero", label: "About Hero", icon: MonitorSmartphone },
       { to: "/dashboard/about-overview", label: "About Overview", icon: LayoutTemplate },
-      { to: "/dashboard/about-mission", label: "About Mission", icon: Target },
-      { to: "/dashboard/about-values", label: "About Values", icon: Gem },
-      { to: "/dashboard/about-choose", label: "Why Choose Us", icon: ShieldCheck },
+      { to: "/dashboard/about-cards", label: "About Cards", icon: Target },
+      { to: "/dashboard/about-corevalues", label: "About Core Values", icon: Gem },
+      { to: "/dashboard/about-chooseus", label: "Why Choose Us", icon: ShieldCheck },
       { to: "/dashboard/about-cta", label: "About CTA", icon: Megaphone },
     ],
   },
@@ -86,12 +86,10 @@ const NAV_ITEMS = [
     Icon: BriefcaseBusiness,
     isDropdown: true,
     children: [
-      { to: "/dashboard/service-hero", label: "Service Hero", icon: MonitorPlay },
-      { to: "/dashboard/service-who-we-are", label: "Who We Are", icon: Users },
-      { to: "/dashboard/service-services", label: "Services", icon: Wrench },
-      { to: "/dashboard/service-steps", label: "Steps", icon: GitBranch },
-      { to: "/dashboard/service-availability", label: "Availability", icon: Clock3 },
-      { to: "/dashboard/service-request", label: "Request", icon: Send },
+      { to: "/dashboard/service-home", label: "Service Home", icon: MonitorPlay },
+      { to: "/dashboard/service-hero", label: "Service Hero", icon: Users },
+      { to: "/dashboard/service-catalog", label: "Service Catalog", icon: Wrench },
+      { to: "/dashboard/service-support", label: "Service Support", icon: GitBranch },
     ],
   },
 
@@ -235,11 +233,11 @@ function Sidebar({ open, onClose }) {
                           >
                             <child.icon size={14} />
                             <span className="flex-1">{child.label}</span>
-                            {badge > 0 && (
+                            {/* {badge > 0 && (
                               <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-red-500 text-white animate-pulse">
                                 {badge}
                               </span>
-                            )}
+                            )} */}
                           </NavLink>
                         );
                       })}
@@ -269,11 +267,11 @@ function Sidebar({ open, onClose }) {
               >
                 <item.Icon size={17} />
                 <span className="flex-1 text-sm">{item.label}</span>
-                {badge > 0 && (
+                {/* {badge > 0 && (
                   <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-red-500 text-white animate-pulse">
                     {badge}
                   </span>
-                )}
+                )} */}
               </NavLink>
             );
           })}
