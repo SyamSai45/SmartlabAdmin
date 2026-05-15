@@ -31,7 +31,7 @@ function ServiceCatalog() {
   const fetchCatalog = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -50,7 +50,7 @@ function ServiceCatalog() {
   const addCard = async () => {
     if (!cardForm.title.trim() || !cardForm.description.trim()) { showToast('Title and description required', 'error'); return; }
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue/cards', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -63,7 +63,7 @@ function ServiceCatalog() {
   const updateCard = async () => {
     if (editingCardIndex === null || !cardForm.title.trim()) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue/cards/${editingCardIndex}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -75,7 +75,7 @@ function ServiceCatalog() {
 
   const deleteCard = async (index) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue/cards/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -88,7 +88,7 @@ function ServiceCatalog() {
     e.preventDefault();
     try {
       setSubmitting(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -101,7 +101,7 @@ function ServiceCatalog() {
   const handleDelete = async () => {
     if (!window.confirm('Delete Service Catalog?')) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }

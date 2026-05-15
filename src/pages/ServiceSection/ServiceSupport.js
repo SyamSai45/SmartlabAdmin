@@ -30,7 +30,7 @@ function ServiceSupport() {
   const fetchSupport = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-support', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -49,7 +49,7 @@ function ServiceSupport() {
   const addPoint = async () => {
     if (!newPoint.trim()) { showToast('Please enter a point', 'error'); return; }
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-support/points', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -61,7 +61,7 @@ function ServiceSupport() {
 
   const deletePoint = async (index) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-support/points/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -74,7 +74,7 @@ function ServiceSupport() {
     e.preventDefault();
     try {
       setSubmitting(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-support', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -87,7 +87,7 @@ function ServiceSupport() {
   const handleDelete = async () => {
     if (!window.confirm('Delete Service Support section?')) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-support', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -99,7 +99,7 @@ function ServiceSupport() {
   const toggleStatus = async () => {
     if (!support) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-support', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },

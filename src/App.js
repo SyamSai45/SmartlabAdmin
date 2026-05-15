@@ -26,6 +26,12 @@ import ServiceHome from "./pages/ServiceSection/ServiceHome";
 import ServiceHero from "./pages/ServiceSection/ServiceHero";
 import ServiceCatalog from "./pages/ServiceSection/ServiceCatalog";
 import ServiceSupport from "./pages/ServiceSection/ServiceSupport";
+import SupportHero from "./pages/SupportSection/SupportHero";
+import SupportCards from "./pages/SupportSection/SupportCards";
+import SupportSolutions from "./pages/SupportSection/SupportSolutions";
+import SupportLifeCycle from "./pages/SupportSection/SupportLifeCycle";
+import SupportFaq from "./pages/SupportSection/SupportFaqs";
+import SupportCta from "./pages/SupportSection/SupportCTA";
 
 const ProtectedRoute = ({ children }) =>
   sessionStorage.getItem("token") ? children : <Navigate to="/login" replace />;
@@ -63,6 +69,12 @@ const AppRoutes = () => {
         <Route path="service-hero" element={<ServiceHero/>}/>
         <Route path="service-catalog" element={<ServiceCatalog/>}/>
         <Route path="service-support" element={<ServiceSupport/>}/>
+        <Route path="support-hero" element={<SupportHero/>}/>
+        <Route path="support-cards" element={<SupportCards/>}/>
+        <Route path="support-solutions" element={<SupportSolutions/>}/>
+        <Route path="support-lifecycle" element={<SupportLifeCycle/>}/>
+        <Route path="support-faqs" element={<SupportFaq/>}/>
+        <Route path="support-cta" element={<SupportCta/>}/>
       </Route>
 
 

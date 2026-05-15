@@ -218,7 +218,7 @@ export function ContactsPage() {
 
   const fetchContacts = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/contacts/all', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -234,7 +234,7 @@ export function ContactsPage() {
 
   const fetchSubjects = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/contacts/subjects', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -249,7 +249,7 @@ export function ContactsPage() {
 
   const fetchStats = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/contacts/stats', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -271,7 +271,7 @@ export function ContactsPage() {
   const updateContactStatus = async (id, status) => {
     try {
       setUpdating(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/contacts/${id}/status`, {
         method: 'PUT',
         headers: {
@@ -304,7 +304,7 @@ export function ContactsPage() {
     if (!window.confirm('Are you sure you want to delete this contact?')) return;
     
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/contacts/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -333,7 +333,7 @@ export function ContactsPage() {
     }
 
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/contacts/subjects', {
         method: 'POST',
         headers: {
@@ -363,7 +363,7 @@ export function ContactsPage() {
     }
 
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/contacts/subjects/${editingSubject._id}`, {
         method: 'PUT',
         headers: {
@@ -388,7 +388,7 @@ export function ContactsPage() {
 
   const handleToggleSubjectStatus = async (subject) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/contacts/subjects/${subject._id}/toggle`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -408,7 +408,7 @@ export function ContactsPage() {
     if (!window.confirm(`Are you sure you want to delete subject "${subject.name}"?`)) return;
     
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/contacts/subjects/${subject._id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }

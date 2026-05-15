@@ -42,7 +42,7 @@ export function HomeTestimonialsDetails() {
   });
 
   const showToast = (msg, type = 'success') => setToast({ message: msg, type });
-  const getToken  = () => localStorage.getItem('token');
+  const getToken  = () => sessionStorage.getItem('token');
 
   /* ── Fetch ── */
   const fetchSection = async () => {

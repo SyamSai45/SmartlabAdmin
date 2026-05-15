@@ -105,7 +105,7 @@ export function AllProducts() {
   const [filterBrand, setFilterBrand] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
   const [viewMode, setViewMode] = useState(() => {
-    return localStorage.getItem('productViewMode') || 'grid';
+    return sessionStorage.getItem('productViewMode') || 'grid';
   });
 
   // Fetch all data
@@ -133,7 +133,7 @@ export function AllProducts() {
   }, [fetchData]);
 
   useEffect(() => {
-    localStorage.setItem('productViewMode', viewMode);
+    sessionStorage.setItem('productViewMode', viewMode);
   }, [viewMode]);
 
   const handleDelete = async (id) => {

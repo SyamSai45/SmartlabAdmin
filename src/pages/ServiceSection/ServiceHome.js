@@ -72,7 +72,7 @@ function ServiceHome() {
   const fetchServiceHome = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-home', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -138,7 +138,7 @@ function ServiceHome() {
     
     try {
       setSubmitting(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append('title', formData.title);
       fd.append('tag', formData.tag);
@@ -174,7 +174,7 @@ function ServiceHome() {
   const handleDelete = async () => {
     if (!window.confirm('Delete Service Home section?')) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-home', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -190,7 +190,7 @@ function ServiceHome() {
   const toggleStatus = async () => {
     if (!serviceHome) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append('title', formData.title);
       fd.append('tag', formData.tag);

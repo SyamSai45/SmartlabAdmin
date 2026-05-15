@@ -30,8 +30,8 @@ function ServiceHero() {
   const fetchServiceHero = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/servicepage/service-hero', {
+      const token = sessionStorage.getItem('token');
+      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-hero', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.status === 404) { setServiceHero(null); return; }
@@ -49,8 +49,8 @@ function ServiceHero() {
   const addPoint = async () => {
     if (!newPoint.trim()) { showToast('Please enter a point', 'error'); return; }
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/servicepage/service-hero/points', {
+      const token = sessionStorage.getItem('token');
+      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-hero/points', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ point: newPoint })
@@ -61,8 +61,8 @@ function ServiceHero() {
 
   const deletePoint = async (index) => {
     try {
-      const token = localStorage.getItem('token');
-      await fetch(`http://localhost:5000/api/servicepage/service-hero/points/${index}`, {
+      const token = sessionStorage.getItem('token');
+      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-hero/points/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -79,8 +79,8 @@ function ServiceHero() {
     }
     try {
       setSubmitting(true);
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/servicepage/service-hero', {
+      const token = sessionStorage.getItem('token');
+      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-hero', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(formData)
@@ -93,8 +93,8 @@ function ServiceHero() {
   const handleDelete = async () => {
     if (!window.confirm('Delete Service Hero?')) return;
     try {
-      const token = localStorage.getItem('token');
-      await fetch('http://localhost:5000/api/servicepage/service-hero', {
+      const token = sessionStorage.getItem('token');
+      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-hero', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -105,8 +105,8 @@ function ServiceHero() {
   const toggleStatus = async () => {
     if (!serviceHero) return;
     try {
-      const token = localStorage.getItem('token');
-      await fetch('http://localhost:5000/api/servicepage/service-hero', {
+      const token = sessionStorage.getItem('token');
+      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-hero', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ ...formData, isActive: !formData.isActive })

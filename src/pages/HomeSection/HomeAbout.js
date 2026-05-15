@@ -143,7 +143,7 @@ export function HomeAbout() {
   const [imagePreview, setImagePreview] = useState(null);
 
   const showToast = (message, type = 'success') => setToast({ message, type });
-  const getToken = () => localStorage.getItem('token');
+  const getToken = () => sessionStorage.getItem('token');
 
   /* ── Fetch ── */
   const fetchAbout = async () => {

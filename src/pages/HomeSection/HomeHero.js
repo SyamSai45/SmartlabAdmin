@@ -311,7 +311,7 @@ export function HomeHero() {
   const [formMode, setFormMode] = useState(null);
 
   const showToast = (message, type = 'success') => setToast({ message, type });
-  const getToken = () => localStorage.getItem('token');
+  const getToken = () => sessionStorage.getItem('token');
 
   /* ── GET /hero ── */
   const fetchHeroes = async () => {

@@ -30,7 +30,7 @@ function AboutChooseUs() {
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/why-choose-us', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -71,7 +71,7 @@ function AboutChooseUs() {
     e.preventDefault();
     try {
       setSubmitting(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append('title', form.title);
       fd.append('tag', form.tag);
@@ -97,7 +97,7 @@ function AboutChooseUs() {
   const addPoint = async () => {
     if (!newPoint.trim()) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/why-choose-us/points', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -113,7 +113,7 @@ function AboutChooseUs() {
 
   const deletePoint = async (index) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/why-choose-us/points/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -128,7 +128,7 @@ function AboutChooseUs() {
   const deleteSection = async () => {
     if (!window.confirm('Delete this section?')) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/why-choose-us', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }

@@ -99,9 +99,9 @@ const NAV_ITEMS = [
     isDropdown: true,
     children: [
       { to: "/dashboard/support-hero", label: "Support Hero", icon: MonitorPlay },
-      { to: "/dashboard/support-quick-points", label: "Quick Points", icon: Lightbulb },
+      { to: "/dashboard/support-cards", label: "Quick Points", icon: Lightbulb },
       { to: "/dashboard/support-solutions", label: "Solutions", icon: ShieldCheck },
-      { to: "/dashboard/support-performance", label: "Performance", icon: ActivityIcon },
+      { to: "/dashboard/support-lifecycle", label: "Performance", icon: ActivityIcon },
       { to: "/dashboard/support-faqs", label: "FAQs", icon: HelpCircle },
       { to: "/dashboard/support-cta", label: "CTA", icon: Megaphone },
     ],

@@ -106,7 +106,7 @@ const AboutOverview = () => {
   // ================= FETCH =================
   const fetchOverview = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const res = await axios.get(API, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -146,7 +146,7 @@ const AboutOverview = () => {
 
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append("title", form.title);
       fd.append("tag", form.tag);
@@ -182,7 +182,7 @@ const AboutOverview = () => {
     if (!window.confirm("Delete About Overview?")) return;
 
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await axios.delete(API, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -208,7 +208,7 @@ const AboutOverview = () => {
     if (!exists) return;
     
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append("title", form.title);
       fd.append("tag", form.tag);
