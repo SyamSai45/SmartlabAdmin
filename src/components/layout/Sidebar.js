@@ -114,7 +114,7 @@ const NAV_ITEMS = [
     Icon: MessageSquare,
     isDropdown: true,
     children: [
-      { to: "/dashboard/contact-forms", label: "Contact", icon: Mail, badgeKey: "contacts" },
+      { to: "/dashboard/contacts", label: "Contact", icon: Mail, badgeKey: "contacts" },
       { to: "/dashboard/get-in-touch", label: "Get In Touch", icon: PhoneCall, badgeKey: "touch" },
       { to: "/dashboard/resume", label: "Resume", icon: FileText, badgeKey: "resume" },
     ],
