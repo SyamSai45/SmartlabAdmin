@@ -33,7 +33,8 @@ import {
   Lightbulb,
   Headset,
   ActivityIcon,
-  PenSquare
+  PenSquare,
+  PanelsTopLeft
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppContext';
@@ -126,8 +127,18 @@ const NAV_ITEMS = [
     Icon: MessageSquare,
     isDropdown: true,
     children: [
+      { to: "/dashboard/contect-hero", label: "Contact Hero", icon: Mail, badgeKey: "contacts" },
       { to: "/dashboard/contacts", label: "Contact", icon: Mail, badgeKey: "contacts" },
       { to: "/dashboard/quotes", label: "Get In Touch", icon: PhoneCall, badgeKey: "touch" },
+    ],
+  },
+
+  {
+    label: "Footer Sections",
+    Icon: PanelsTopLeft,
+    isDropdown: true,
+    children: [
+      { to: "/dashboard/footer", label: "Footer", icon: Package },
     ],
   },
 ];
