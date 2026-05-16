@@ -152,7 +152,7 @@ export function AllProducts() {
 
   const patch = async (id, payload) => {
     try {
-      await apiClient.patch(`/products/${id}`, payload);
+      await apiClient.patch(`/products/${id}/toggle`, payload);
       await fetchData();
     } catch (err) {
       console.error('patch:', err);

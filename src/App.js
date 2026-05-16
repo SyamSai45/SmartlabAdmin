@@ -32,6 +32,10 @@ import SupportSolutions from "./pages/SupportSection/SupportSolutions";
 import SupportLifeCycle from "./pages/SupportSection/SupportLifeCycle";
 import SupportFaq from "./pages/SupportSection/SupportFaqs";
 import SupportCta from "./pages/SupportSection/SupportCTA";
+import { BlogsAdmin } from "./pages/BlogSection/BlogAdmin";
+import { BlogHero } from "./pages/BlogSection/BlogHero";
+import { BlogList } from "./pages/BlogSection/BlogList";
+import { BlogForm } from "./pages/BlogSection/BlogForm";
 
 const ProtectedRoute = ({ children }) =>
   sessionStorage.getItem("token") ? children : <Navigate to="/login" replace />;
@@ -75,6 +79,10 @@ const AppRoutes = () => {
         <Route path="support-lifecycle" element={<SupportLifeCycle/>}/>
         <Route path="support-faqs" element={<SupportFaq/>}/>
         <Route path="support-cta" element={<SupportCta/>}/>
+        <Route path="blogs" element={<BlogsAdmin/>}/>
+        <Route path="blog-hero" element={<BlogHero/>}/>
+        <Route path="blog-list" element={<BlogList/>}/>
+        <Route path="blog-create" element={<BlogForm/>}/>
       </Route>
 
 

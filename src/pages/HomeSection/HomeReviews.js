@@ -15,9 +15,9 @@ const Toast = ({ message, type, onClose }) => {
   useEffect(() => { const t = setTimeout(onClose, 4000); return () => clearTimeout(t); }, [onClose]);
   const cfg = {
     success: { bg: 'bg-emerald-500', icon: <CheckCircle size={18} /> },
-    error:   { bg: 'bg-red-500',     icon: <AlertCircle size={18} /> },
-    warning: { bg: 'bg-amber-500',   icon: <AlertTriangle size={18} /> },
-    info:    { bg: 'bg-blue-500',    icon: <Sparkles size={18} /> },
+    error: { bg: 'bg-red-500', icon: <AlertCircle size={18} /> },
+    warning: { bg: 'bg-amber-500', icon: <AlertTriangle size={18} /> },
+    info: { bg: 'bg-blue-500', icon: <Sparkles size={18} /> },
   };
   const { bg, icon } = cfg[type] || cfg.info;
   return (
@@ -59,13 +59,13 @@ const StarRating = ({ rating, size = 14 }) => (
 /* ─── Testimonial Form ─── */
 const TestimonialForm = ({ initial, onSave, onCancel, submitting, isNew }) => {
   const [form, setForm] = useState({
-    name:     initial?.name     || '',
-    rating:   initial?.rating   || '5',
-    role:     initial?.role     || '',
-    review:   initial?.review   || '',
+    name: initial?.name || '',
+    rating: initial?.rating || '5',
+    role: initial?.role || '',
+    review: initial?.review || '',
     isActive: initial?.isActive !== false,
   });
-  const [imageFile, setImageFile]       = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(
     typeof initial?.image === 'string' ? initial.image : initial?.image?.url || null
   );
@@ -104,7 +104,7 @@ const TestimonialForm = ({ initial, onSave, onCancel, submitting, isNew }) => {
         </div>
         <div>
           <label className="btn btn-secondary text-xs cursor-pointer gap-1.5">
-            <ImagePlus size={13} /> {imagePreview ? 'Change Photo' : 'Upload Photo'}
+            <ImagePlus size={13} /> {imagePreview ? 'Change Photo' : 'Upload Photo'}<span className='text-red-500 text-xl'>*</span>
             <input type="file" className="sr-only" accept="image/*" onChange={handleFile} />
           </label>
           <p className="text-[11px] text-slate-400 mt-1">PNG, JPG up to 5MB</p>
@@ -114,7 +114,7 @@ const TestimonialForm = ({ initial, onSave, onCancel, submitting, isNew }) => {
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-600 mb-1.5 flex items-center gap-1">
-            <Users size={11} className="text-violet-500" /> Name *
+            <Users size={11} className="text-violet-500" /> Name <span className='text-red-500 text-xl'>*</span>
           </label>
           <input type="text" value={form.name}
             onChange={e => setForm({ ...form, name: e.target.value })}
@@ -167,7 +167,7 @@ const TestimonialForm = ({ initial, onSave, onCancel, submitting, isNew }) => {
           className="flex items-center gap-2 text-sm font-medium text-slate-700">
           {form.isActive
             ? <ToggleRight size={24} className="text-emerald-500" />
-            : <ToggleLeft  size={24} className="text-slate-400"   />}
+            : <ToggleLeft size={24} className="text-slate-400" />}
           {form.isActive ? 'Visible on site' : 'Hidden from site'}
         </button>
       </div>
@@ -194,9 +194,8 @@ const TestimonialCard = ({ item, index, onEdit, onDelete, onPreview, submitting 
       className="relative p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow group">
 
       {/* Active badge */}
-      <span className={`absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-full ${
-        item.isActive !== false ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'
-      }`}>
+      <span className={`absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-full ${item.isActive !== false ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'
+        }`}>
         {item.isActive !== false ? 'Active' : 'Hidden'}
       </span>
 
@@ -243,21 +242,21 @@ const TestimonialCard = ({ item, index, onEdit, onDelete, onPreview, submitting 
 /* ─── Main Component ─── */
 export function HomeReviews() {
   const [testimonials, setTestimonials] = useState([]);
-  const [loading, setLoading]           = useState(true);
-  const [submitting, setSubmitting]     = useState(false);
-  const [addingItem, setAddingItem]     = useState(false);
-  const [editingIdx, setEditingIdx]     = useState(null);
-  const [toast, setToast]               = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [addingItem, setAddingItem] = useState(false);
+  const [editingIdx, setEditingIdx] = useState(null);
+  const [toast, setToast] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
   const showToast = (msg, type = 'success') => setToast({ message: msg, type });
-  const getToken  = () => sessionStorage.getItem('token');
+  const getToken = () => sessionStorage.getItem('token');
 
   /* ── Fetch ── */
   const fetchTestimonials = async () => {
     try {
       setLoading(true);
-      const res  = await fetch(`${BASE_URL}/testimonials`, { headers: { Authorization: `Bearer ${getToken()}` } });
+      const res = await fetch(`${BASE_URL}/testimonials`, { headers: { Authorization: `Bearer ${getToken()}` } });
       const data = await res.json();
       if (data.success && data.data) {
         setTestimonials(data.data.testimonials || []);
@@ -279,14 +278,14 @@ export function HomeReviews() {
     try {
       setSubmitting(true);
       const body = new FormData();
-      body.append('name',     form.name);
-      body.append('rating',   form.rating);
-      body.append('role',     form.role);
-      body.append('review',   form.review);
+      body.append('name', form.name);
+      body.append('rating', form.rating);
+      body.append('role', form.role);
+      body.append('review', form.review);
       body.append('isActive', String(form.isActive));
       if (imageFile) body.append('image', imageFile);
 
-      const res  = await fetch(`${BASE_URL}/testimonials/add`, {
+      const res = await fetch(`${BASE_URL}/testimonials/add`, {
         method: 'POST', headers: { Authorization: `Bearer ${getToken()}` }, body,
       });
       const data = await res.json();
@@ -304,14 +303,14 @@ export function HomeReviews() {
     try {
       setSubmitting(true);
       const body = new FormData();
-      body.append('name',     form.name);
-      body.append('rating',   form.rating);
-      body.append('role',     form.role);
-      body.append('review',   form.review);
+      body.append('name', form.name);
+      body.append('rating', form.rating);
+      body.append('role', form.role);
+      body.append('review', form.review);
       body.append('isActive', String(form.isActive));
       if (imageFile) body.append('image', imageFile);
 
-      const res  = await fetch(`${BASE_URL}/testimonials/${index}`, {
+      const res = await fetch(`${BASE_URL}/testimonials/${index}`, {
         method: 'PUT', headers: { Authorization: `Bearer ${getToken()}` }, body,
       });
       const data = await res.json();
@@ -329,7 +328,7 @@ export function HomeReviews() {
     if (!window.confirm('Delete this testimonial?')) return;
     try {
       setSubmitting(true);
-      const res  = await fetch(`${BASE_URL}/testimonials/${index}`, {
+      const res = await fetch(`${BASE_URL}/testimonials/${index}`, {
         method: 'DELETE', headers: { Authorization: `Bearer ${getToken()}` },
       });
       const data = await res.json();
@@ -341,17 +340,17 @@ export function HomeReviews() {
     finally { setSubmitting(false); }
   };
 
-  const total  = testimonials.length;
+  const total = testimonials.length;
   const active = testimonials.filter(t => t.isActive !== false).length;
   const avgRating = total
     ? (testimonials.reduce((s, t) => s + (Number(t.rating) || 0), 0) / total).toFixed(1)
     : '—';
 
   const statCards = [
-    { label: 'Total Reviews',  value: total,      icon: MessageSquare, color: 'violet' },
-    { label: 'Active',         value: active,     icon: CheckCircle,   color: 'green'  },
-    { label: 'Hidden',         value: total - active, icon: ToggleLeft, color: 'slate' },
-    { label: 'Avg Rating',     value: avgRating,  icon: Star,          color: 'amber'  },
+    { label: 'Total Reviews', value: total, icon: MessageSquare, color: 'violet' },
+    { label: 'Active', value: active, icon: CheckCircle, color: 'green' },
+    { label: 'Hidden', value: total - active, icon: ToggleLeft, color: 'slate' },
+    { label: 'Avg Rating', value: avgRating, icon: Star, color: 'amber' },
   ];
 
   return (
@@ -385,15 +384,14 @@ export function HomeReviews() {
         {statCards.map((s, i) => (
           <div key={i} className="stat-card group">
             <div className="flex items-center justify-between mb-3">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                s.color === 'violet' ? 'bg-violet-50' :
-                s.color === 'green'  ? 'bg-emerald-50' :
-                s.color === 'amber'  ? 'bg-amber-50' : 'bg-slate-50'
-              }`}>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${s.color === 'violet' ? 'bg-violet-50' :
+                  s.color === 'green' ? 'bg-emerald-50' :
+                    s.color === 'amber' ? 'bg-amber-50' : 'bg-slate-50'
+                }`}>
                 <s.icon size={18} className={
                   s.color === 'violet' ? 'text-violet-600' :
-                  s.color === 'green'  ? 'text-emerald-600' :
-                  s.color === 'amber'  ? 'text-amber-600' : 'text-slate-400'
+                    s.color === 'green' ? 'text-emerald-600' :
+                      s.color === 'amber' ? 'text-amber-600' : 'text-slate-400'
                 } />
               </div>
             </div>

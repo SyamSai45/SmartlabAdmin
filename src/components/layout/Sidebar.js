@@ -32,7 +32,8 @@ import {
   HelpCircle,
   Lightbulb,
   Headset,
-  ActivityIcon
+  ActivityIcon,
+  PenSquare
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppContext';
@@ -104,6 +105,19 @@ const NAV_ITEMS = [
       { to: "/dashboard/support-lifecycle", label: "Performance", icon: ActivityIcon },
       { to: "/dashboard/support-faqs", label: "FAQs", icon: HelpCircle },
       { to: "/dashboard/support-cta", label: "CTA", icon: Megaphone },
+    ],
+  },
+
+  {
+    label: "Blogs Sections",
+    Icon: BookOpen,
+    isDropdown: true,
+    children: [
+      { to: "/dashboard/blog-hero", label: "Blog Hero", icon: MonitorPlay },
+
+      { to: "/dashboard/blog-list", label: "Blog List", icon: FileText },
+
+      { to: "/dashboard/blog-create", label: "Create Blog", icon: PenSquare },
     ],
   },
 

@@ -135,7 +135,7 @@ function ServiceCatalog() {
             {catalog && !isEditing ? (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <div className="text-center mb-8"><span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs mb-3">{catalog.tag}</span><h2 className="text-3xl font-bold text-slate-800">{catalog.title}</h2></div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">{cards.map((card, idx) => <div key={idx} className="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:shadow-md transition"><div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-3"><Grid size={20} className="text-white" /></div><h3 className="font-semibold text-slate-800 mb-2">{card.title}</h3><p className="text-slate-600 text-sm">{card.description}</p><button onClick={() => { setEditingCardIndex(idx); setCardForm({ title: card.title, description: card.description, icon: card.icon }); }} className="mt-3 text-blue-600 text-sm hover:underline">Edit</button></div>)}</div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">{cards.map((card, idx) => <div key={idx} className="bg-slate-50 rounded-xl p-5 border border-slate-200 hover:shadow-md transition"><div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mb-3"><Grid size={20} className="text-white" /></div><h3 className="font-semibold text-slate-800 mb-2">{card.title}</h3><p className="text-slate-600 text-sm">{card.description}</p></div>)}</div>
               </motion.div>
             ) : (
               <div className="space-y-6">

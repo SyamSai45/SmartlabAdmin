@@ -115,7 +115,7 @@ const Categories = () => {
   };
 
   // Search Filter
-  const filteredCategories = categories.filter((item) =>
+  const filteredCategories = categories.slice().reverse().filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
