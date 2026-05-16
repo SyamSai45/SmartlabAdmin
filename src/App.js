@@ -8,7 +8,7 @@ import { DashboardPage } from "./pages/DashboardPage";
 import CategoriesPage from "./pages/CategoriesPage";
 import { ContactsPage } from "./pages/ContactsPage";
 import { AllProducts } from "./pages/products/AllProducts";
-import { QuotesPage } from "./pages/QuotesPage";
+import GetQuote, { QuotesPage } from "./pages/QuotesPage";
 import BrandsPage from "./pages/Brands";
 import { ProductForm } from "./pages/products/CreateProduct";
 import { HomeHero } from "./pages/HomeSection/HomeHero";
@@ -50,7 +50,7 @@ const AppRoutes = () => {
         <Route path="categories" element={<CategoriesPage />} />
         <Route path="priciples" element={<BrandsPage />} />
         <Route path="contacts" element={<ContactsPage />} />
-        <Route path="quotes" element={<QuotesPage />} />
+        <Route path="quotes" element={<GetQuote />} />
         <Route path="products" element={<AllProducts />} />
         <Route path="addproduct" element={<ProductForm />} />
         <Route path="editproduct/:id" element={<ProductForm />} />

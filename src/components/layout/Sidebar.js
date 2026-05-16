@@ -113,7 +113,7 @@ const NAV_ITEMS = [
     isDropdown: true,
     children: [
       { to: "/dashboard/contacts", label: "Contact", icon: Mail, badgeKey: "contacts" },
-      { to: "/dashboard/get-in-touch", label: "Get In Touch", icon: PhoneCall, badgeKey: "touch" },
+      { to: "/dashboard/quotes", label: "Get In Touch", icon: PhoneCall, badgeKey: "touch" },
     ],
   },
 ];
