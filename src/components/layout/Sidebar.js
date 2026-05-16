@@ -114,11 +114,13 @@ const NAV_ITEMS = [
     Icon: BookOpen,
     isDropdown: true,
     children: [
-      { to: "/dashboard/blog-hero", label: "Blog Hero", icon: MonitorPlay },
+      { to: "/dashboard/blogs", label: "Blogs", icon: FileText },
 
-      { to: "/dashboard/blog-list", label: "Blog List", icon: FileText },
+      // { to: "/dashboard/blog-hero", label: "Blog Hero", icon: MonitorPlay },
 
-      { to: "/dashboard/blog-create", label: "Create Blog", icon: PenSquare },
+      // { to: "/dashboard/blog-list", label: "Blog List", icon: FileText },
+
+      // { to: "/dashboard/blog-create", label: "Create Blog", icon: PenSquare },
     ],
   },
 
