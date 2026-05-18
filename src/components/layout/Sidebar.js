@@ -53,6 +53,7 @@ const NAV_ITEMS = [
     children: [
       { to: "/dashboard/addproduct", label: "Create Product", icon: PlusCircle },
       { to: "/dashboard/products", label: "All Products", icon: Package },
+      { to: "/dashboard/suggested-products", label: "Suggested Products", icon: Package },
     ],
   },
 

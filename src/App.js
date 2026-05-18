@@ -39,6 +39,7 @@ import { BlogForm } from "./pages/BlogSection/BlogForm";
 import { ContactHero } from "./pages/ContactHero";
 import { FooterAdmin } from "./pages/FooterAdmin";
 import { ViewProduct } from "./pages/products/SingleProductDetails";
+import { SuggestedProducts } from "./pages/products/SuggestedProducts";
 
 const ProtectedRoute = ({ children }) =>
   sessionStorage.getItem("token") ? children : <Navigate to="/login" replace />;
@@ -63,6 +64,7 @@ const AppRoutes = () => {
         <Route path="addproduct" element={<ProductForm />} />
         <Route path="editproduct/:id" element={<ProductForm />} />
         <Route path='viewproduct/:id' element={<ViewProduct/>}/>
+        <Route path='suggested-products' element={<SuggestedProducts/>}/>
         <Route path="home-hero" element={<HomeHero />} />
         <Route path="home-about" element={<HomeAbout />} />
         <Route path="home-counts" element={<HomeAchievements />} />
