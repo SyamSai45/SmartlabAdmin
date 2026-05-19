@@ -261,7 +261,7 @@ function GetQuote() {
   const fetchQuotes = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       let url = 'https://smartlabtechbackend-p5h6.onrender.com/api/quotes/admin/quotes';
 
       if (filterStatus !== 'all') {
@@ -286,7 +286,7 @@ function GetQuote() {
 
   const fetchStats = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/quotes/admin/stats', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -307,7 +307,7 @@ function GetQuote() {
   const updateQuoteStatus = async (id, status) => {
     try {
       setUpdating(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/quotes/admin/quotes/${id}`, {
         method: 'PUT',
         headers: {
@@ -340,7 +340,7 @@ function GetQuote() {
     if (!window.confirm('Are you sure you want to delete this quote request?')) return;
 
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/quotes/admin/quotes/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }

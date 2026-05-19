@@ -1,9 +1,10 @@
 // src/components/layout/Header.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Menu, Bell, RefreshCw, X, Maximize2, Minimize2, User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import { Menu, Bell, RefreshCw, X, Maximize2, Minimize2, User, LogOut, Settings, ChevronDown, CheckCircle, Mail, FileText, Wrench } from 'lucide-react';
 import { useAppData } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
+import { format } from 'date-fns';
 
 const PAGE_TITLES = {
   '/dashboard': 'Dashboard',
@@ -11,6 +12,25 @@ const PAGE_TITLES = {
   '/dashboard/quote-requests': 'Quote Requests',
   '/dashboard/categories': 'Category Management',
   '/dashboard/products': 'Product Management',
+  '/dashboard/service-requests': 'Service Requests',
+  '/dashboard/notifications': 'Notifications',
+  '/dashboard/resources': 'Resources Management',
+  '/dashboard/popup': 'Popup Manager'
+};
+
+const typeIcons = {
+  contact: { icon: Mail, bg: 'bg-emerald-100', color: 'text-emerald-600' },
+  quote: { icon: FileText, bg: 'bg-purple-100', color: 'text-purple-600' },
+  service: { icon: Wrench, bg: 'bg-blue-100', color: 'text-blue-600' },
+  order: { icon: CheckCircle, bg: 'bg-amber-100', color: 'text-amber-600' },
+  system: { icon: Bell, bg: 'bg-slate-100', color: 'text-slate-600' }
+};
+
+const priorityColors = {
+  low: 'bg-gray-100 text-gray-600',
+  medium: 'bg-blue-100 text-blue-600',
+  high: 'bg-orange-100 text-orange-600',
+  urgent: 'bg-red-100 text-red-600'
 };
 
 function Header({ onMenuClick }) {
@@ -23,59 +43,103 @@ function Header({ onMenuClick }) {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  
+  // Notification state
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [loadingNotif, setLoadingNotif] = useState(false);
 
-  const title = PAGE_TITLES[location.pathname] || 'Admin';
+  const title = PAGE_TITLES[location.pathname] || 'Admin Dashboard';
 
-  // Get unread counts
-  const unreadContacts = contacts?.filter(c => !c.read).length || 0;
-  const unreadQuotes = quotes?.filter(q => !q.read).length || 0;
-  const totalUnread = unreadContacts + unreadQuotes;
-
-  // Get recent notifications (combine contacts and quotes)
-  const getRecentNotifications = () => {
-    const notifications = [];
-
-    contacts?.filter(c => !c.read).forEach(contact => {
-      notifications.push({
-        id: `contact-${contact.id}`,
-        type: 'contact',
-        title: contact.name,
-        message: contact.message?.slice(0, 60),
-        time: contact.createdAt,
-        link: '/dashboard/contact-forms'
+  // Fetch notifications from API
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const token = sessionStorage.getItem('token');
+      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/notifications?limit=10', {
+        headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
-    });
+      const data = await response.json();
+      
+      if (data.success) {
+        setNotifications(data.data || []);
+        setUnreadCount(data.unreadCount || 0);
+      }
+    } catch (err) {
+      console.error('Error fetching notifications:', err);
+    }
+  }, []);
 
-    quotes?.filter(q => !q.read).forEach(quote => {
-      notifications.push({
-        id: `quote-${quote.id}`,
-        type: 'quote',
-        title: quote.name,
-        message: `${quote.productName || 'Product'} - ${quote.quantity} units`,
-        time: quote.createdAt,
-        link: '/dashboard/quote-requests'
+  const fetchUnreadCount = useCallback(async () => {
+    try {
+      const token = sessionStorage.getItem('token');
+      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/notifications/unread/count', {
+        headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
-    });
+      const data = await response.json();
+      if (data.success) setUnreadCount(data.data.unreadCount);
+    } catch (err) {
+      console.error('Error fetching unread count:', err);
+    }
+  }, []);
 
-    return notifications.sort((a, b) => new Date(b.time) - new Date(a.time)).slice(0, 5);
+  // Initial fetch and polling
+  useEffect(() => {
+    fetchNotifications();
+    fetchUnreadCount();
+    
+    const interval = setInterval(() => {
+      fetchUnreadCount();
+    }, 30000);
+    
+    return () => clearInterval(interval);
+  }, [fetchNotifications, fetchUnreadCount]);
+
+  const markAsRead = async (id) => {
+    try {
+      const token = sessionStorage.getItem('token');
+      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/notifications/${id}/read`, {
+        method: 'PUT',
+        headers: { 'Authorization': token ? `Bearer ${token}` : '' }
+      });
+      fetchNotifications();
+      fetchUnreadCount();
+    } catch (err) {
+      console.error('Error marking as read:', err);
+    }
+  };
+
+  const markAllAsRead = async () => {
+    try {
+      const token = sessionStorage.getItem('token');
+      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/notifications/read-all', {
+        method: 'PUT',
+        headers: { 'Authorization': token ? `Bearer ${token}` : '' }
+      });
+      fetchNotifications();
+      fetchUnreadCount();
+    } catch (err) {
+      console.error('Error marking all as read:', err);
+    }
+  };
+
+  const getNotificationLink = (notification) => {
+    const { referenceModel, referenceId } = notification;
+    if (referenceModel === 'Contact') return `/dashboard/contacts`;
+    if (referenceModel === 'Quote') return `/dashboard/quotes`;
+    if (referenceModel === 'ServiceForm') return `/dashboard/service-requests`;
+    return '#';
   };
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-
-    window.location.reload();
-
-    setTimeout(() => {
-      setIsRefreshing(false);
-    }, 1000);
+    await fetchNotifications();
+    await refreshData?.();
+    setTimeout(() => setIsRefreshing(false), 500);
   };
 
-  // Toggle fullscreen
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(err => {
-        console.error(`Error attempting to enable fullscreen: ${err.message}`);
-      });
+      document.documentElement.requestFullscreen();
       setIsFullscreen(true);
     } else {
       document.exitFullscreen();
@@ -83,17 +147,12 @@ function Header({ onMenuClick }) {
     }
   };
 
-  // Listen for fullscreen change events
   useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
-
+    const handleFullscreenChange = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
-  // Handle responsive
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
@@ -101,17 +160,11 @@ function Header({ onMenuClick }) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (showAdminDropdown && !event.target.closest('.admin-dropdown')) {
-        setShowAdminDropdown(false);
-      }
-      if (showNotif && !event.target.closest('.notif-dropdown')) {
-        setShowNotif(false);
-      }
+      if (showAdminDropdown && !event.target.closest('.admin-dropdown')) setShowAdminDropdown(false);
+      if (showNotif && !event.target.closest('.notif-dropdown')) setShowNotif(false);
     };
-
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [showAdminDropdown, showNotif]);
@@ -128,14 +181,21 @@ function Header({ onMenuClick }) {
   };
 
   const handleProfile = () => {
-    navigate('/dashboard/profile');
+    navigate('/dashboard/notifications');
     setShowAdminDropdown(false);
   };
+
+  const handleViewAllNotifications = () => {
+    setShowNotif(false);
+    navigate('/dashboard/notifications');
+  };
+
+  // Get recent notifications for dropdown
+  const recentNotifications = notifications.slice(0, 5);
 
   return (
     <header className="sticky top-0 z-30 flex items-center justify-between gap-4 px-4 sm:px-6 h-16 bg-white border-b border-slate-200 shadow-sm flex-shrink-0">
       <div className="flex items-center gap-3 flex-1 min-w-0">
-        {/* Mobile menu button */}
         <button
           className="btn-icon lg:hidden hover:bg-slate-100 rounded-lg p-2 transition-colors"
           onClick={onMenuClick}
@@ -143,42 +203,30 @@ function Header({ onMenuClick }) {
         >
           <Menu size={20} className="text-slate-600" />
         </button>
-
-        {/* Title with responsive text */}
         <h1 className="font-display text-lg sm:text-xl font-bold text-slate-900 truncate">
           {title}
         </h1>
       </div>
 
-      {/* Actions - Right side */}
       <div className="flex items-center gap-1 sm:gap-2">
-        {/* Refresh button */}
         <button
           className="btn-icon hover:bg-slate-100 rounded-lg p-2 transition-colors relative"
           onClick={handleRefresh}
           disabled={isRefreshing}
           aria-label="Refresh data"
         >
-          <RefreshCw
-            size={17}
-            className={`text-slate-500 ${isRefreshing ? 'animate-spin' : ''}`}
-          />
+          <RefreshCw size={17} className={`text-slate-500 ${isRefreshing ? 'animate-spin' : ''}`} />
         </button>
 
-        {/* Fullscreen toggle */}
         <button
           className="btn-icon hover:bg-slate-100 rounded-lg p-2 transition-colors hidden sm:flex"
           onClick={toggleFullscreen}
           aria-label="Toggle fullscreen"
         >
-          {isFullscreen ? (
-            <Minimize2 size={17} className="text-slate-500" />
-          ) : (
-            <Maximize2 size={17} className="text-slate-500" />
-          )}
+          {isFullscreen ? <Minimize2 size={17} className="text-slate-500" /> : <Maximize2 size={17} className="text-slate-500" />}
         </button>
 
-        {/* Notification bell */}
+        {/* Notifications Dropdown */}
         <div className="relative notif-dropdown">
           <button
             className="btn-icon hover:bg-slate-100 rounded-lg p-2 transition-colors relative"
@@ -186,84 +234,106 @@ function Header({ onMenuClick }) {
             aria-label="Notifications"
           >
             <Bell size={18} className="text-slate-500" />
-            {totalUnread > 0 && (
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white animate-pulse" />
+            {unreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 ring-2 ring-white">
+                {unreadCount > 9 ? '9+' : unreadCount}
+              </span>
             )}
           </button>
 
-          {/* Notifications dropdown */}
           {showNotif && (
             <>
-              <div
-                className="fixed inset-0 z-40 lg:hidden"
-                onClick={() => setShowNotif(false)}
-              />
-              <div className={`
-                absolute right-0 top-full mt-2 
-                w-[90vw] sm:w-80 max-h-[80vh]
-                bg-white rounded-2xl border border-slate-200 
-                shadow-xl z-50 overflow-hidden
-                transition-all duration-200
-              `}>
-                <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                  <span className="text-sm font-semibold text-slate-800">Notifications</span>
+              <div className="fixed inset-0 z-40 lg:hidden" onClick={() => setShowNotif(false)} />
+              <div className="absolute right-0 top-full mt-2 w-[90vw] sm:w-96 bg-white rounded-2xl border border-slate-200 shadow-xl z-50 overflow-hidden">
+                <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50">
                   <div className="flex items-center gap-2">
-                    {totalUnread > 0 && (
-                      <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">
-                        {totalUnread} new
+                    <Bell size={16} className="text-blue-600" />
+                    <span className="text-sm font-semibold text-slate-800">Notifications</span>
+                    {unreadCount > 0 && (
+                      <span className="bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded-full">
+                        {unreadCount} new
                       </span>
                     )}
-                    <button
-                      onClick={() => setShowNotif(false)}
-                      className="lg:hidden text-slate-400 hover:text-slate-600"
-                    >
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {unreadCount > 0 && (
+                      <button
+                        onClick={markAllAsRead}
+                        className="text-xs text-blue-600 hover:text-blue-700"
+                      >
+                        Mark all read
+                      </button>
+                    )}
+                    <button onClick={() => setShowNotif(false)} className="lg:hidden text-slate-400 hover:text-slate-600">
                       <X size={16} />
                     </button>
                   </div>
                 </div>
 
-                <div className="overflow-y-auto max-h-[calc(80vh-60px)]">
-                  {getRecentNotifications().length > 0 ? (
-                    getRecentNotifications().map(notif => (
-                      <a
-                        key={notif.id}
-                        href={notif.link}
-                        onClick={() => setShowNotif(false)}
-                        className="block px-4 py-3 border-b border-slate-50 hover:bg-slate-50 transition-colors cursor-pointer"
-                      >
-                        <p className="text-xs font-semibold text-slate-700 truncate">
-                          {notif.title}
-                        </p>
-                        <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">
-                          {notif.message}
-                        </p>
-                        <p className="text-[10px] text-slate-400 mt-1">
-                          {new Date(notif.time).toLocaleDateString()}
-                        </p>
-                      </a>
-                    ))
+                <div className="overflow-y-auto max-h-[calc(80vh-120px)]">
+                  {recentNotifications.length > 0 ? (
+                    recentNotifications.map(notif => {
+                      const IconInfo = typeIcons[notif.type] || typeIcons.system;
+                      const IconComponent = IconInfo.icon;
+                      
+                      return (
+                        <a
+                          key={notif._id}
+                          href={getNotificationLink(notif)}
+                          onClick={() => {
+                            if (!notif.isRead) markAsRead(notif._id);
+                            setShowNotif(false);
+                          }}
+                          className={`block px-4 py-3 border-b border-slate-50 hover:bg-slate-50 transition-colors cursor-pointer ${
+                            !notif.isRead ? 'bg-blue-50/30' : ''
+                          }`}
+                        >
+                          <div className="flex items-start gap-2">
+                            <div className={`w-8 h-8 rounded-lg ${IconInfo.bg} flex items-center justify-center flex-shrink-0`}>
+                              <IconComponent size={14} className={IconInfo.color} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between gap-2">
+                                <p className="text-xs font-semibold text-slate-700 truncate">
+                                  {notif.title}
+                                </p>
+                                {!notif.isRead && <span className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />}
+                              </div>
+                              <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-2">
+                                {notif.message}
+                              </p>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className="text-[9px] text-slate-400">
+                                  {format(new Date(notif.createdAt), 'MMM dd, h:mm a')}
+                                </span>
+                                <span className={`text-[9px] px-1.5 py-0.5 rounded-full ${priorityColors[notif.priority]}`}>
+                                  {notif.priority}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      );
+                    })
                   ) : (
-                    <div className="px-4 py-8 text-center">
-                      <div className="text-4xl mb-2">🔔</div>
-                      <p className="text-sm text-slate-400">All caught up!</p>
-                      <p className="text-xs text-slate-300 mt-1">No new notifications</p>
+                    <div className="px-4 py-10 text-center">
+                      <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3">
+                        <Bell size={24} className="text-slate-400" />
+                      </div>
+                      <p className="text-sm text-slate-500">No new notifications</p>
+                      <p className="text-xs text-slate-400 mt-1">All caught up!</p>
                     </div>
                   )}
                 </div>
 
-                {totalUnread > 0 && (
-                  <div className="px-4 py-2 border-t border-slate-100 bg-slate-50">
-                    <button
-                      className="w-full text-center text-xs text-blue-600 hover:text-blue-700 font-medium"
-                      onClick={() => {
-                        setShowNotif(false);
-                        // Navigate to all notifications
-                      }}
-                    >
-                      View all notifications →
-                    </button>
-                  </div>
-                )}
+                <div className="px-4 py-2 border-t border-slate-100 bg-slate-50">
+                  <button
+                    onClick={handleViewAllNotifications}
+                    className="w-full text-center text-xs text-blue-600 hover:text-blue-700 font-medium py-1"
+                  >
+                    View all notifications →
+                  </button>
+                </div>
               </div>
             </>
           )}
@@ -287,21 +357,13 @@ function Header({ onMenuClick }) {
                 {user?.role || 'Administrator'}
               </p>
             </div>
-            <ChevronDown
-              size={16}
-              className={`text-slate-400 transition-transform duration-200 hidden sm:block ${showAdminDropdown ? 'rotate-180' : ''}`}
-            />
+            <ChevronDown size={16} className={`text-slate-400 transition-transform duration-200 hidden sm:block ${showAdminDropdown ? 'rotate-180' : ''}`} />
           </button>
 
-          {/* Admin Dropdown Menu */}
           {showAdminDropdown && (
             <>
-              <div
-                className="fixed inset-0 z-40 lg:hidden"
-                onClick={() => setShowAdminDropdown(false)}
-              />
-              <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl border border-slate-200 shadow-xl z-50 overflow-hidden animate-in slide-in-from-top-2 duration-200">
-                {/* User Info Section */}
+              <div className="fixed inset-0 z-40 lg:hidden" onClick={() => setShowAdminDropdown(false)} />
+              <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl border border-slate-200 shadow-xl z-50 overflow-hidden">
                 <div className="px-4 py-4 border-b border-slate-100 bg-gradient-to-r from-blue-50 to-indigo-50">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-md">
@@ -321,16 +383,14 @@ function Header({ onMenuClick }) {
                   </div>
                 </div>
 
-                {/* Menu Items */}
                 <div className="py-2">
                   <button
                     onClick={handleProfile}
                     className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
                   >
-                    <User size={16} className="text-slate-400" />
-                    <span>My Profile</span>
+                    <Bell size={16} className="text-slate-400" />
+                    <span>Notifications</span>
                   </button>
-
                   <button
                     onClick={handleSettings}
                     className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
@@ -338,9 +398,7 @@ function Header({ onMenuClick }) {
                     <Settings size={16} className="text-slate-400" />
                     <span>Settings</span>
                   </button>
-
-                  <div className="border-t border-slate-100 my-1"></div>
-
+                  <div className="border-t border-slate-100 my-1" />
                   <button
                     onClick={handleLogout}
                     className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
@@ -354,7 +412,7 @@ function Header({ onMenuClick }) {
           )}
         </div>
 
-        {/* Live indicator - hidden on mobile */}
+        {/* Live indicator */}
         <div className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>

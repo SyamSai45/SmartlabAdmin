@@ -72,7 +72,7 @@ export function BlogHero() {
   const fetchBlogHero = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -136,7 +136,7 @@ export function BlogHero() {
     
     try {
       setSubmitting(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append('title', formData.title);
       fd.append('tag', formData.tag);
@@ -173,7 +173,7 @@ export function BlogHero() {
   const handleDelete = async () => {
     if (!window.confirm('Delete Blog Hero section?')) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/hero', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -189,7 +189,7 @@ export function BlogHero() {
   const toggleStatus = async () => {
     if (!blogHero) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append('title', formData.title);
       fd.append('tag', formData.tag);

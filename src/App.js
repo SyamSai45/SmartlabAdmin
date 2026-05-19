@@ -40,6 +40,16 @@ import { ContactHero } from "./pages/ContactHero";
 import { FooterAdmin } from "./pages/FooterAdmin";
 import { ViewProduct } from "./pages/products/SingleProductDetails";
 import { SuggestedProducts } from "./pages/products/SuggestedProducts";
+import ServicePopupManager from "./pages/ServiceSection/ServicePopup";
+import ServiceRequestManager from "./pages/ServiceRequestForm";
+import ResourceHero from "./pages/ResourseSection/ResourseHero";
+import ResourceArticles from "./pages/ResourseSection/ResourseArticles";
+import ResourceDocs from "./pages/ResourseSection/ResourceDocs";
+import ResourceCaseStudy from "./pages/ResourseSection/ResourceCaseStudy";
+import ResourceFaqs from "./pages/ResourseSection/ResourceFaqs";
+import ResourceAchievements from "./pages/ResourseSection/ResourceAchievements";
+import ResourceCTA from "./pages/ResourseSection/ResourceCTA";
+import NotificationsPage from "./pages/NotificationsPage";
 
 const ProtectedRoute = ({ children }) =>
   sessionStorage.getItem("token") ? children : <Navigate to="/login" replace />;
@@ -56,15 +66,15 @@ const AppRoutes = () => {
       <Route path="/dashboard" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
         <Route index element={<DashboardPage />} />
         <Route path="categories" element={<CategoriesPage />} />
-        <Route path="priciples" element={<BrandsPage />} />
+        <Route path="principles" element={<BrandsPage />} />
         <Route path="contacts" element={<ContactsPage />} />
-        <Route path="contect-hero" element={<ContactHero/>}/>
+        <Route path="contect-hero" element={<ContactHero />} />
         <Route path="quotes" element={<GetQuote />} />
         <Route path="products" element={<AllProducts />} />
         <Route path="addproduct" element={<ProductForm />} />
         <Route path="editproduct/:id" element={<ProductForm />} />
-        <Route path='viewproduct/:id' element={<ViewProduct/>}/>
-        <Route path='suggested-products' element={<SuggestedProducts/>}/>
+        <Route path='viewproduct/:id' element={<ViewProduct />} />
+        <Route path='suggested-products' element={<SuggestedProducts />} />
         <Route path="home-hero" element={<HomeHero />} />
         <Route path="home-about" element={<HomeAbout />} />
         <Route path="home-counts" element={<HomeAchievements />} />
@@ -76,21 +86,31 @@ const AppRoutes = () => {
         <Route path="about-corevalues" element={<AboutCoreValues />} />
         <Route path="about-chooseus" element={<AboutChooseUs />} />
         <Route path="about-cta" element={<AboutCta />} />
-        <Route path="service-home" element={<ServiceHome/>}/>
-        <Route path="service-hero" element={<ServiceHero/>}/>
-        <Route path="service-catalog" element={<ServiceCatalog/>}/>
-        <Route path="service-support" element={<ServiceSupport/>}/>
-        <Route path="support-hero" element={<SupportHero/>}/>
-        <Route path="support-cards" element={<SupportCards/>}/>
-        <Route path="support-solutions" element={<SupportSolutions/>}/>
-        <Route path="support-lifecycle" element={<SupportLifeCycle/>}/>
-        <Route path="support-faqs" element={<SupportFaq/>}/>
-        <Route path="support-cta" element={<SupportCta/>}/>
-        <Route path="blogs" element={<BlogsAdmin/>}/>
-        <Route path="blog-hero" element={<BlogHero/>}/>
-        <Route path="blog-list" element={<BlogList/>}/>
-        <Route path="blog-create" element={<BlogForm/>}/>
-        <Route path="footer" element={<FooterAdmin/>}/>
+        <Route path="service-popup" element={<ServicePopupManager />} />
+        <Route path="service-home" element={<ServiceHome />} />
+        <Route path="service-hero" element={<ServiceHero />} />
+        <Route path="service-catalog" element={<ServiceCatalog />} />
+        <Route path="service-support" element={<ServiceSupport />} />
+        <Route path="service-requests" element={<ServiceRequestManager />} />
+        <Route path="support-hero" element={<SupportHero />} />
+        <Route path="support-cards" element={<SupportCards />} />
+        <Route path="support-solutions" element={<SupportSolutions />} />
+        <Route path="support-lifecycle" element={<SupportLifeCycle />} />
+        <Route path="support-faqs" element={<SupportFaq />} />
+        <Route path="support-cta" element={<SupportCta />} />
+        <Route path="blogs" element={<BlogsAdmin />} />
+        <Route path="blog-hero" element={<BlogHero />} />
+        <Route path="blog-list" element={<BlogList />} />
+        <Route path="blog-create" element={<BlogForm />} />
+        <Route path="resources/hero" element={<ResourceHero />} />
+        <Route path="resources/articles" element={<ResourceArticles />} />
+        <Route path="resources/docs" element={<ResourceDocs />} />
+        <Route path="resources/case-studies" element={<ResourceCaseStudy />} />
+        <Route path="resources/faqs" element={<ResourceFaqs />} />
+        <Route path="resources/achievements" element={<ResourceAchievements />} />
+        <Route path="resources/cta" element={<ResourceCTA />} />
+        <Route path="footer" element={<FooterAdmin />} />
+        <Route path="notifications" element={<NotificationsPage />} />
       </Route>
 
 

@@ -284,7 +284,7 @@ const ProductSelector = ({ selectedProducts, onChange }) => {
     (async () => {
       try {
         setLoading(true);
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         const res = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/products/', { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await res.json();
         if (data.success) setAllProducts(data.data || []);
@@ -469,7 +469,7 @@ export function FooterAdmin() {
   const fetchFooter = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const res = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/footer', { headers: { 'Authorization': `Bearer ${token}` } });
       if (res.status === 404) { setFooter(null); return; }
       const data = await res.json();
@@ -512,7 +512,7 @@ export function FooterAdmin() {
     if (!formData.companyContact.location.trim()) return showToast('Location is required', 'error');
     try {
       setSubmitting(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append('companyDescription', formData.companyDescription);
       fd.append('companyContact', JSON.stringify(formData.companyContact));
@@ -554,7 +554,7 @@ export function FooterAdmin() {
   const handleDelete = async () => {
     if (!window.confirm('Delete Footer? This cannot be undone.')) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/footer', { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       setFooter(null);
       setFormData(defaultForm);

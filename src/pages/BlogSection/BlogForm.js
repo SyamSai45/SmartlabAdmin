@@ -94,7 +94,7 @@ export function BlogForm({ blog, onSuccess, onCancel }) {
 
   const fetchCategories = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/categories', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -107,7 +107,7 @@ export function BlogForm({ blog, onSuccess, onCancel }) {
 
   const fetchTags = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/tags', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -159,7 +159,7 @@ export function BlogForm({ blog, onSuccess, onCancel }) {
     
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append('title', formData.title);
       fd.append('category', formData.category);

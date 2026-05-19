@@ -72,7 +72,7 @@ export function ContactHero() {
   const fetchContactHero = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/contacts/hero', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -134,7 +134,7 @@ export function ContactHero() {
     
     try {
       setSubmitting(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append('title', formData.title);
       fd.append('tag', formData.tag);
@@ -171,7 +171,7 @@ export function ContactHero() {
   const handleDelete = async () => {
     if (!window.confirm('Delete Contact Hero section?')) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/contacts/hero', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -187,7 +187,7 @@ export function ContactHero() {
   const toggleStatus = async () => {
     if (!contactHero) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const fd = new FormData();
       fd.append('title', formData.title);
       fd.append('tag', formData.tag);

@@ -271,7 +271,7 @@ export function BlogList({ onEdit }) {
   const fetchBlogs = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       let url = 'https://smartlabtechbackend-p5h6.onrender.com/api/blogs/all';
       const params = new URLSearchParams();
       if (searchTerm) params.append('search', searchTerm);
@@ -297,7 +297,7 @@ export function BlogList({ onEdit }) {
 
   const fetchCategories = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/categories', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -310,7 +310,7 @@ export function BlogList({ onEdit }) {
 
   const fetchTags = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/tags', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -328,7 +328,7 @@ export function BlogList({ onEdit }) {
   const deleteBlog = async (id) => {
     if (!window.confirm('Are you sure you want to delete this blog?')) return;
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/blogs/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -345,7 +345,7 @@ export function BlogList({ onEdit }) {
 
   const viewBlog = async (id) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/blogs/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });

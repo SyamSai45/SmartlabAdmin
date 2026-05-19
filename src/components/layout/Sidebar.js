@@ -1,6 +1,6 @@
 // src/components/layout/Sidebar.js
 import React, { Activity, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, MessageSquare, FileText,
   FolderOpen, Package, FlaskConical, LogOut, User,
@@ -34,7 +34,11 @@ import {
   Headset,
   ActivityIcon,
   PenSquare,
-  PanelsTopLeft
+  PanelsTopLeft,
+  Briefcase,
+  Trophy,
+  Layout,
+  Bell
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppContext';
@@ -44,7 +48,7 @@ const NAV_ITEMS = [
 
   { to: "/dashboard/categories", label: "Category", Icon: FolderOpen },
 
-  { to: "/dashboard/priciples", label: "Priciples", Icon: BadgeCheck },
+  { to: "/dashboard/principles", label: "Principles", Icon: BadgeCheck },
 
   {
     label: "Products",
@@ -89,6 +93,7 @@ const NAV_ITEMS = [
     Icon: BriefcaseBusiness,
     isDropdown: true,
     children: [
+      { to: "/dashboard/service-popup", label: "Service Popup", icon: MonitorPlay },
       { to: "/dashboard/service-home", label: "Service Home", icon: MonitorPlay },
       { to: "/dashboard/service-hero", label: "Service Hero", icon: Users },
       { to: "/dashboard/service-catalog", label: "Service Catalog", icon: Wrench },
@@ -126,13 +131,29 @@ const NAV_ITEMS = [
   },
 
   {
+    label: "Resources Management",
+    Icon: BookOpen,
+    isDropdown: true,
+    children: [
+      { to: "/dashboard/resources/hero", label: "Resource Hero", icon: Layout },
+      { to: "/dashboard/resources/articles", label: "Articles", icon: FileText },
+      { to: "/dashboard/resources/docs", label: "Documents", icon: FolderOpen },
+      { to: "/dashboard/resources/case-studies", label: "Case Studies", icon: Briefcase },
+      { to: "/dashboard/resources/faqs", label: "FAQs", icon: HelpCircle },
+      { to: "/dashboard/resources/achievements", label: "Achievements", icon: Trophy },
+      { to: "/dashboard/resources/cta", label: "CTA Section", icon: Megaphone },
+    ],
+  },
+
+  {
     label: "Contact Management",
     Icon: MessageSquare,
     isDropdown: true,
     children: [
       { to: "/dashboard/contect-hero", label: "Contact Hero", icon: Mail, badgeKey: "contacts" },
-      { to: "/dashboard/contacts", label: "Contact", icon: Mail, badgeKey: "contacts" },
-      { to: "/dashboard/quotes", label: "Get In Touch", icon: PhoneCall, badgeKey: "touch" },
+      { to: "/dashboard/contacts", label: "Contact", icon: PhoneCall, badgeKey: "contacts" },
+      { to: "/dashboard/quotes", label: "Get In Touch", icon: Mail, badgeKey: "touch" },
+      { to: "/dashboard/service-requests", label: "Service Requests", icon: PhoneCall, badgeKey: "touch" },
     ],
   },
 
@@ -144,6 +165,7 @@ const NAV_ITEMS = [
       { to: "/dashboard/footer", label: "Footer", icon: Package },
     ],
   },
+  { to: "/dashboard/notifications", label: "Notifications", Icon: Bell },
 ];
 
 function Sidebar({ open, onClose }) {
@@ -151,6 +173,8 @@ function Sidebar({ open, onClose }) {
   const { contacts, quotes } = useAppData();
   const location = useLocation();
   const [openDropdowns, setOpenDropdowns] = useState({});
+
+  const navigate = useNavigate();
 
   const pendingContacts = contacts?.filter(c => c.status === 'pending').length || 0;
   const pendingQuotes = quotes?.filter(q => q.status === 'pending').length || 0;
@@ -167,6 +191,18 @@ function Sidebar({ open, onClose }) {
 
   const isChildActive = (children) => {
     return children?.some(child => location.pathname === child.to || location.pathname.startsWith(child.to));
+  };
+
+  const handleLogout = () => {
+
+    // Remove token
+    sessionStorage.removeItem("token");
+
+    // Optional: clear all session data
+    // sessionStorage.clear();
+
+    // Redirect to login
+    navigate("/", { replace: true });
   };
 
   return (
@@ -196,9 +232,9 @@ function Sidebar({ open, onClose }) {
         <div className="px-5 py-5 flex items-center gap-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg,#2563eb,#0ea5e9)', boxShadow: '0 4px 14px rgba(37,99,235,0.4)' }}
+            style={{ background: 'linear-gradient(135deg,#fff,#fff)', boxShadow: '0 4px 14px rgba(37,99,235,0.4)' }}
           >
-            <FlaskConical size={20} className="text-white" />
+            <img src='/logo.png' className='w-16 h-8' />
           </div>
           <div>
             <div className="font-display text-lg font-bold text-white tracking-tight">
@@ -305,30 +341,50 @@ function Sidebar({ open, onClose }) {
           })}
         </nav>
 
-        {/* ── User card ── */}
-        <div className="p-3" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-          <div
-            className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
+        {/* ── Logout Button ── */}
+        <div
+          className="p-4"
+          style={{
+            borderTop: '1px solid rgba(255,255,255,0.07)',
+            background: 'rgba(255,255,255,0.02)'
+          }}
+        >
+          <button
+            onClick={handleLogout}
+            className="
+              group
+              relative
+              overflow-hidden
+              w-full
+              flex items-center justify-center gap-3
+              px-4 py-3.5
+              rounded-2xl
+              text-sm font-semibold
+              text-white/80
+              border border-white/10
+              bg-white/[0.04]
+              hover:bg-red-500/15
+              hover:border-red-400/30
+              hover:text-red-300
+              transition-all duration-300
+              hover:shadow-[0_8px_30px_rgba(239,68,68,0.18)]
+            "
+            title="Sign out"
           >
-            <div
-              className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg,#f59e0b,#ef4444)' }}
-            >
-              <User size={15} className="text-white" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-white text-[13px] font-semibold truncate">{user?.name || 'Admin'}</div>
-              <div className="text-white/40 text-[11px] truncate">{user?.email || 'admin@smartlabtech.com'}</div>
-            </div>
-            <button
-              onClick={logout}
-              className="text-white/30 hover:text-red-400 transition-colors p-1"
-              title="Sign out"
-            >
-              <LogOut size={15} />
-            </button>
-          </div>
+
+            {/* Glow */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-red-500/10 via-transparent to-red-500/10" />
+
+            <LogOut
+              size={18}
+              className="relative z-10 transition-transform duration-300 group-hover:-translate-x-1"
+            />
+
+            <span className="relative z-10 tracking-wide">
+              Logout
+            </span>
+
+          </button>
         </div>
       </aside>
     </>

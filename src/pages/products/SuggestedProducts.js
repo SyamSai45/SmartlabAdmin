@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Search, Filter, ChevronDown, Mail, Phone, Building2,
-  Eye, Trash2, User, Clock, Sparkles, AlertCircle, Check, X,
+  Search, Filter, ChevronDown, Eye, Trash2, User, Clock, Sparkles, AlertCircle, Check, X,
   Calendar, Tag, Loader2, RefreshCw, Edit, Plus, FileText,
   BookOpen, Award, EyeOff, CheckCircle, XCircle, Archive,
   Heart, Share2, Link2, Quote, Star, TrendingUp, Package,
-  DollarSign, ShoppingCart, Users, Zap, Flame, Target
+  DollarSign, ShoppingCart, Users, Zap, Flame, Target, Shield, Globe, Wifi, Bluetooth
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -34,52 +33,81 @@ const Toast = ({ message, type, onClose }) => {
   );
 };
 
-const ProductCard = ({ product, onToggle, onRemove, isSelected, onSelect }) => {
+const ProductCard = ({ product, onToggle, onRemove, onAdd, isSelected, onSelect, isSuggested }) => {
+  const getIconComponent = (iconName) => {
+    const icons = {
+      zap: Zap,
+      shield: Shield,
+      globe: Globe,
+      award: Award,
+      wifi: Wifi,
+      bluetooth: Bluetooth
+    };
+    return icons[iconName] || Star;
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-lg transition-all group"
     >
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-48 overflow-hidden bg-slate-100">
         <img
-          src={product.image || product.mainImage}
+          src={product.mainImage}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           onError={(e) => {
             e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
           }}
         />
-        {product.isActive && (
+        {product.isFeatured && (
           <div className="absolute top-3 right-3">
-            <span className="px-2 py-1 bg-emerald-600 text-white text-xs rounded-lg flex items-center gap-1">
-              <CheckCircle size={10} /> Active
+            <span className="px-2 py-1 bg-amber-500 text-white text-xs rounded-lg flex items-center gap-1">
+              <Award size={10} /> Featured
+            </span>
+          </div>
+        )}
+        {isSuggested && product.isActive !== undefined && (
+          <div className="absolute top-3 left-3">
+            <span className={`px-2 py-1 text-xs rounded-lg flex items-center gap-1 ${
+              product.isActive !== false 
+                ? 'bg-emerald-500 text-white' 
+                : 'bg-slate-500 text-white'
+            }`}>
+              <CheckCircle size={10} /> 
+              {product.isActive !== false ? 'Active' : 'Inactive'}
             </span>
           </div>
         )}
         {onSelect && (
-          <div className="absolute top-3 left-3">
+          <div className="absolute top-3 left-3 bg-white/90 rounded-lg p-1">
             <input
               type="checkbox"
               checked={isSelected}
-              onChange={(e) => onSelect(product.id, e.target.checked)}
+              onChange={(e) => onSelect(product._id, e.target.checked)}
               className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
             />
           </div>
         )}
       </div>
       <div className="p-4">
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-center gap-2 mb-2 flex-wrap">
           <span className="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
             {product.brandName}
           </span>
-          <span className="text-xs text-slate-400">{product.categoryName}</span>
+          <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
+            {product.categoryName}
+          </span>
         </div>
         <h3 className="font-bold text-slate-800 mb-1 line-clamp-2 group-hover:text-blue-600 transition-colors">
           {product.name}
         </h3>
+        <p className="text-xs text-slate-500 mb-3 line-clamp-2">
+          {product.shortDesc?.substring(0, 80)}...
+        </p>
         <div className="flex items-center gap-2 mb-3">
-          <span className="text-lg font-bold text-slate-900">₹{product.price?.toLocaleString()}</span>
+          <span className="text-lg font-bold text-slate-900">₹{product.discountedPrice?.toLocaleString() || product.price?.toLocaleString()}</span>
           {product.discountedPrice && product.discountedPrice < product.price && (
             <>
               <span className="text-sm text-slate-400 line-through">₹{product.price?.toLocaleString()}</span>
@@ -89,30 +117,55 @@ const ProductCard = ({ product, onToggle, onRemove, isSelected, onSelect }) => {
             </>
           )}
         </div>
+        
+        {/* Highlights */}
+        {product.highlights && product.highlights.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-3">
+            {product.highlights.slice(0, 2).map((highlight, idx) => {
+              const IconComponent = getIconComponent(highlight.icon);
+              return (
+                <div key={idx} className="flex items-center gap-1 text-xs text-slate-500">
+                  <IconComponent size={10} className="text-blue-500" />
+                  <span>{highlight.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+        
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             <Star size={14} className="text-amber-400 fill-amber-400" />
             <span className="text-sm font-medium text-slate-700">{product.rating || 4.5}</span>
+            <span className="text-xs text-slate-400">({product.reviews || 0})</span>
           </div>
           <div className="flex gap-2">
             {onToggle && (
               <button
-                onClick={() => onToggle(product.id)}
+                onClick={() => onToggle(product._id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  product.isActive
+                  product.isActive !== false
                     ? 'bg-amber-100 text-amber-700 hover:bg-amber-200'
                     : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
                 }`}
               >
-                {product.isActive ? 'Deactivate' : 'Activate'}
+                {product.isActive !== false ? 'Deactivate' : 'Activate'}
               </button>
             )}
             {onRemove && (
               <button
-                onClick={() => onRemove(product.id)}
+                onClick={() => onRemove(product._id)}
                 className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-100 text-red-700 hover:bg-red-200 transition-all"
               >
                 Remove
+              </button>
+            )}
+            {onAdd && (
+              <button
+                onClick={() => onAdd(product._id)}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition-all flex items-center gap-1"
+              >
+                <Plus size={12} /> Add
               </button>
             )}
           </div>
@@ -141,7 +194,7 @@ export function SuggestedProducts() {
   const fetchSuggestedProducts = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/products/suggestions', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -160,7 +213,7 @@ export function SuggestedProducts() {
 
   const fetchAllProducts = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/products', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -181,7 +234,7 @@ export function SuggestedProducts() {
   const addToSuggestions = async (productId) => {
     try {
       setSubmitting(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/products/suggestions', {
         method: 'POST',
         headers: {
@@ -209,7 +262,7 @@ export function SuggestedProducts() {
     if (!window.confirm('Remove this product from suggestions?')) return;
     
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/products/suggestions/${productId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -229,7 +282,7 @@ export function SuggestedProducts() {
 
   const toggleSuggestionStatus = async (productId) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/products/suggestions/${productId}/toggle`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
@@ -255,7 +308,7 @@ export function SuggestedProducts() {
     
     try {
       setBulkLoading(true);
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/products/suggestions/bulk', {
         method: 'POST',
         headers: {
@@ -422,7 +475,7 @@ export function SuggestedProducts() {
                 Add Selected ({selectedProducts.length})
               </button>
             )}
-            {activeTab === 'available' && (
+            {activeTab === 'available' && availableProducts.length > 0 && (
               <button
                 onClick={handleSelectAll}
                 className="btn btn-secondary"
@@ -465,6 +518,7 @@ export function SuggestedProducts() {
                 product={product}
                 onToggle={toggleSuggestionStatus}
                 onRemove={removeFromSuggestions}
+                isSuggested={true}
                 isActive={product.isActive !== false}
               />
             ))
@@ -493,17 +547,24 @@ export function SuggestedProducts() {
               <ProductCard
                 key={product._id}
                 product={{
-                  id: product._id,
+                  _id: product._id,
                   name: product.name,
                   brandName: product.brandName,
                   categoryName: product.categoryName,
-                  price: product.discountedPrice || product.price,
+                  price: product.price,
+                  discountedPrice: product.discountedPrice,
                   mainImage: product.mainImage,
+                  shortDesc: product.shortDesc,
+                  highlights: product.highlights,
                   rating: product.rating,
+                  reviews: product.reviews,
+                  isFeatured: product.isFeatured,
                   isActive: product.isActive
                 }}
+                onAdd={addToSuggestions}
                 onSelect={handleSelectProduct}
                 isSelected={selectedProducts.includes(product._id)}
+                isSuggested={false}
               />
             ))
           )}
@@ -523,7 +584,8 @@ export function SuggestedProducts() {
               <li>• You can activate/deactivate individual suggestions without removing them</li>
               <li>• Use bulk selection to add multiple products at once</li>
               <li>• Products remain in the list until manually removed</li>
-              <li>• Order of display is determined by the product rating and popularity</li>
+              <li>• Featured products are highlighted with a special badge</li>
+              <li>• Product highlights (stabilization time, warranty, etc.) are displayed for quick reference</li>
             </ul>
           </div>
         </div>
