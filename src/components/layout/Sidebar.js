@@ -107,7 +107,7 @@ const NAV_ITEMS = [
     isDropdown: true,
     children: [
       { to: "/dashboard/support-hero", label: "Support Hero", icon: MonitorPlay },
-      { to: "/dashboard/support-cards", label: "Quick Points", icon: Lightbulb },
+      { to: "/dashboard/support-cards", label: "Support Cards", icon: Lightbulb },
       { to: "/dashboard/support-solutions", label: "Solutions", icon: ShieldCheck },
       { to: "/dashboard/support-lifecycle", label: "Performance", icon: ActivityIcon },
       { to: "/dashboard/support-faqs", label: "FAQs", icon: HelpCircle },
@@ -152,7 +152,7 @@ const NAV_ITEMS = [
     children: [
       { to: "/dashboard/contect-hero", label: "Contact Hero", icon: Mail, badgeKey: "contacts" },
       { to: "/dashboard/contacts", label: "Contact", icon: PhoneCall, badgeKey: "contacts" },
-      { to: "/dashboard/quotes", label: "Get In Touch", icon: Mail, badgeKey: "touch" },
+      { to: "/dashboard/quotes", label: "Quote Requests", icon: Mail, badgeKey: "touch" },
       { to: "/dashboard/service-requests", label: "Service Requests", icon: PhoneCall, badgeKey: "touch" },
     ],
   },

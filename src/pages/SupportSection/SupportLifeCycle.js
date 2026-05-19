@@ -116,7 +116,7 @@ function SupportLifeCycle() {
         <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600" />
         <div className="relative z-10 px-7 py-6">
           <div className="flex items-center gap-2 mb-3"><span className="w-2 h-2 bg-white rounded-full animate-pulse" /><span className="text-white/80 text-[11px] font-bold uppercase tracking-widest">Support Page Management</span><Sparkles size={14} className="text-yellow-300" /></div>
-          <h2 className="font-display text-3xl font-bold text-white mb-2">Support <span className="text-emerald-200">Life Cycle</span></h2>
+          <h2 className="font-display text-3xl font-bold text-white mb-2">Performance <span className="text-emerald-200"></span></h2>
           <p className="text-white/70 text-sm">Manage equipment life cycle support process</p>
         </div>
       </div>
