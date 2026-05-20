@@ -166,6 +166,7 @@ const NAV_ITEMS = [
     ],
   },
   { to: "/dashboard/notifications", label: "Notifications", Icon: Bell },
+  { to: "/dashboard/settings", label: "Settings", Icon: Bell },
 ];
 
 function Sidebar({ open, onClose }) {

@@ -35,12 +35,12 @@ const CARD_GRADIENTS = [
 ];
 
 const STATUS_MAP = {
-  pending:    { bg: "#fef3c7", text: "#92400e", dot: "#f59e0b", border: "#fde68a" },
-  approved:   { bg: "#d1fae5", text: "#064e3b", dot: "#10b981", border: "#a7f3d0" },
+  pending: { bg: "#fef3c7", text: "#92400e", dot: "#f59e0b", border: "#fde68a" },
+  approved: { bg: "#d1fae5", text: "#064e3b", dot: "#10b981", border: "#a7f3d0" },
   processing: { bg: "#dbeafe", text: "#1e3a8a", dot: "#3b82f6", border: "#bfdbfe" },
-  quoted:     { bg: "#ede9fe", text: "#4c1d95", dot: "#8b5cf6", border: "#ddd6fe" },
-  rejected:   { bg: "#fee2e2", text: "#7f1d1d", dot: "#ef4444", border: "#fecaca" },
-  completed:  { bg: "#ccfbf1", text: "#134e4a", dot: "#14b8a6", border: "#99f6e4" },
+  quoted: { bg: "#ede9fe", text: "#4c1d95", dot: "#8b5cf6", border: "#ddd6fe" },
+  rejected: { bg: "#fee2e2", text: "#7f1d1d", dot: "#ef4444", border: "#fecaca" },
+  completed: { bg: "#ccfbf1", text: "#134e4a", dot: "#14b8a6", border: "#99f6e4" },
 };
 
 function StatusBadge({ status }) {
@@ -85,7 +85,7 @@ function Skeleton({ className = "" }) {
 
 function StatCard({ icon: Icon, label, value, sub, link, gradient, delay = 0 }) {
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div
@@ -95,7 +95,7 @@ const navigate = useNavigate();
         animation: `fadeUp 0.5s ease ${delay}s both`,
         boxShadow: `0 8px 24px ${gradient.from}40`,
       }}
-      onClick={()=>navigate(link)}
+      onClick={() => navigate(link)}
     >
       <div className="absolute -right-4 -top-4 w-24 h-24 rounded-full" style={{ background: "rgba(255,255,255,0.15)" }} />
       <div className="absolute right-6 bottom-2 w-12 h-12 rounded-full" style={{ background: "rgba(255,255,255,0.08)" }} />
@@ -167,7 +167,10 @@ export function DashboardPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(API_URL);
+      const token = sessionStorage.getItem('token');
+      const res = await fetch(API_URL, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
       const json = await res.json();
       if (!json.success) throw new Error("API returned failure");
       setData(json.data);
@@ -232,23 +235,23 @@ export function DashboardPage() {
   const chartData = months.map((label, i) => ({
     label,
     Contacts: [3, 5, 4, 7, contacts.thisMonth][i],
-    Quotes:   [2, 3, 5, 4, quotes.thisMonth][i],
+    Quotes: [2, 3, 5, 4, quotes.thisMonth][i],
   }));
 
   const pieData = [
     { name: "Processing", value: quotes.processing, color: "#3b82f6" },
-    { name: "Quoted",     value: quotes.quoted,     color: "#8b5cf6" },
-    { name: "Approved",   value: quotes.approved,   color: "#10b981" },
-    { name: "Pending",    value: quotes.pending,    color: "#f59e0b" },
-    { name: "Rejected",   value: quotes.rejected,   color: "#ef4444" },
+    { name: "Quoted", value: quotes.quoted, color: "#8b5cf6" },
+    { name: "Approved", value: quotes.approved, color: "#10b981" },
+    { name: "Pending", value: quotes.pending, color: "#f59e0b" },
+    { name: "Rejected", value: quotes.rejected, color: "#ef4444" },
   ].filter((s) => s.value > 0);
 
   const contactBarData = [
-    { name: "Total",     value: contacts.total,    fill: "#6366f1" },
-    { name: "Pending",   value: contacts.pending,  fill: "#f59e0b" },
-    { name: "Replied",   value: contacts.replied,  fill: "#10b981" },
+    { name: "Total", value: contacts.total, fill: "#6366f1" },
+    { name: "Pending", value: contacts.pending, fill: "#f59e0b" },
+    { name: "Replied", value: contacts.replied, fill: "#10b981" },
     { name: "This Week", value: contacts.thisWeek, fill: "#ec4899" },
-    { name: "Today",     value: contacts.today,    fill: "#06b6d4" },
+    { name: "Today", value: contacts.today, fill: "#06b6d4" },
   ];
 
   const statCards = [
@@ -319,10 +322,10 @@ export function DashboardPage() {
 
             <div className="flex gap-3 flex-wrap items-center">
               {[
-                { v: products.active,      l: "Products", c: "#a5f3fc" },
-                { v: contacts.pending,     l: "Pending",  c: "#fde68a" },
-                { v: quotes.total,         l: "Quotes",   c: "#ddd6fe" },
-                { v: notifications.unread, l: "Alerts",   c: "#fecaca" },
+                { v: products.active, l: "Products", c: "#a5f3fc" },
+                { v: contacts.pending, l: "Pending", c: "#fde68a" },
+                { v: quotes.total, l: "Quotes", c: "#ddd6fe" },
+                { v: notifications.unread, l: "Alerts", c: "#fecaca" },
               ].map(({ v, l, c }) => (
                 <div
                   key={l}
@@ -382,11 +385,11 @@ export function DashboardPage() {
               <AreaChart data={chartData} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="gC" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%"  stopColor="#6366f1" stopOpacity={0.2} />
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2} />
                     <stop offset="95%" stopColor="#6366f1" stopOpacity={0.02} />
                   </linearGradient>
                   <linearGradient id="gQ" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%"  stopColor="#ec4899" stopOpacity={0.18} />
+                    <stop offset="5%" stopColor="#ec4899" stopOpacity={0.18} />
                     <stop offset="95%" stopColor="#ec4899" stopOpacity={0.02} />
                   </linearGradient>
                 </defs>
@@ -396,7 +399,7 @@ export function DashboardPage() {
                 <Tooltip content={<CustomTooltip />} />
                 <Area type="monotone" dataKey="Contacts" stroke="#6366f1" strokeWidth={2.5} fill="url(#gC)"
                   dot={{ r: 4, fill: "#6366f1", strokeWidth: 2, stroke: "#fff" }} />
-                <Area type="monotone" dataKey="Quotes"   stroke="#ec4899" strokeWidth={2.5} fill="url(#gQ)"
+                <Area type="monotone" dataKey="Quotes" stroke="#ec4899" strokeWidth={2.5} fill="url(#gQ)"
                   dot={{ r: 4, fill: "#ec4899", strokeWidth: 2, stroke: "#fff" }} />
               </AreaChart>
             </ResponsiveContainer>
@@ -412,16 +415,16 @@ export function DashboardPage() {
                 Summary KPIs
               </div>
             </div>
-            <KpiBar label="Total Leads"     value={summary.totalLeads}     max={30}  color="#6366f1" />
-            <KpiBar label="Pending Actions" value={summary.pendingActions} max={20}  color="#f59e0b" />
+            <KpiBar label="Total Leads" value={summary.totalLeads} max={30} color="#6366f1" />
+            <KpiBar label="Pending Actions" value={summary.pendingActions} max={20} color="#f59e0b" />
             <KpiBar label="Conversion Rate" value={summary.conversionRate} max={100} color="#10b981" suffix="%" />
-            <KpiBar label="Active Products" value={summary.activeProducts} max={10}  color="#ec4899" />
+            <KpiBar label="Active Products" value={summary.activeProducts} max={10} color="#ec4899" />
             <div className="border-t border-slate-100 pt-4 space-y-3">
               {[
-                { icon: Zap,   label: "Today's contacts", value: contacts.today },
-                { icon: Clock, label: "This week",        value: contacts.thisWeek },
-                { icon: Clock, label: "This month",       value: contacts.thisMonth },
-                { icon: Users, label: "Total contacts",   value: contacts.total },
+                { icon: Zap, label: "Today's contacts", value: contacts.today },
+                { icon: Clock, label: "This week", value: contacts.thisWeek },
+                { icon: Clock, label: "This month", value: contacts.thisMonth },
+                { icon: Users, label: "Total contacts", value: contacts.total },
               ].map(({ icon: Icon, label, value }) => (
                 <div key={label} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -499,7 +502,7 @@ export function DashboardPage() {
                 <defs>
                   {contactBarData.map((d, i) => (
                     <linearGradient key={i} id={`bg${i}`} x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%"   stopColor={d.fill} stopOpacity={1} />
+                      <stop offset="0%" stopColor={d.fill} stopOpacity={1} />
                       <stop offset="100%" stopColor={d.fill} stopOpacity={0.55} />
                     </linearGradient>
                   ))}
@@ -610,10 +613,10 @@ export function DashboardPage() {
 
         {/* ── Quick Stats ── */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <QuickStat icon={Star}        label="Featured Products"    value={products.featured}    color="#f59e0b" delay={0.55} />
-          <QuickStat icon={CheckCircle} label="Approved Quotes"      value={quotes.approved}      color="#10b981" delay={0.60} />
-          <QuickStat icon={Bell}        label="Unread Notifications" value={notifications.unread} color="#ef4444" delay={0.65} />
-          <QuickStat icon={BookOpen}    label="Total Blogs"          value={blogs.total}          color="#8b5cf6" delay={0.70} />
+          <QuickStat icon={Star} label="Featured Products" value={products.featured} color="#f59e0b" delay={0.55} />
+          <QuickStat icon={CheckCircle} label="Approved Quotes" value={quotes.approved} color="#10b981" delay={0.60} />
+          <QuickStat icon={Bell} label="Unread Notifications" value={notifications.unread} color="#ef4444" delay={0.65} />
+          <QuickStat icon={BookOpen} label="Total Blogs" value={blogs.total} color="#8b5cf6" delay={0.70} />
         </div>
 
       </div>

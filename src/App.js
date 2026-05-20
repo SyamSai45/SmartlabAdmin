@@ -50,6 +50,7 @@ import ResourceFaqs from "./pages/ResourseSection/ResourceFaqs";
 import ResourceAchievements from "./pages/ResourseSection/ResourceAchievements";
 import ResourceCTA from "./pages/ResourseSection/ResourceCTA";
 import NotificationsPage from "./pages/NotificationsPage";
+import Settings from "./pages/Settings";
 
 const ProtectedRoute = ({ children }) =>
   sessionStorage.getItem("token") ? children : <Navigate to="/login" replace />;
@@ -111,6 +112,8 @@ const AppRoutes = () => {
         <Route path="resources/cta" element={<ResourceCTA />} />
         <Route path="footer" element={<FooterAdmin />} />
         <Route path="notifications" element={<NotificationsPage />} />
+        <Route path="settings" element={<Settings />} />
+
       </Route>
 
 
