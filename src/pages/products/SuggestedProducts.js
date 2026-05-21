@@ -54,7 +54,7 @@ const ProductCard = ({ product, onToggle, onRemove, onAdd, isSelected, onSelect,
     >
       <div className="relative h-48 overflow-hidden bg-slate-100">
         <img
-          src={product.mainImage}
+          src={product?.mainImage || product?.image}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           onError={(e) => {
