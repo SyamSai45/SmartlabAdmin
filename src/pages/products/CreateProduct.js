@@ -421,9 +421,9 @@ export function ProductForm() {
                     onChange={e => set('name', e.target.value)} 
                   />
                 </Field>
-                <Field label="Principle" required error={fieldErrors.brand}>
+                <Field label="Principal" required error={fieldErrors.brand}>
                   <Select value={form.brand} onChange={e => set('brand', e.target.value)}>
-                    <option value="">Select Principle</option>
+                    <option value="">Select Principal</option>
                     {brands?.map(b => (
                       <option key={b._id} value={b._id}>{b.name}</option>
                     ))}

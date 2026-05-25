@@ -274,10 +274,10 @@ export function DashboardPage() {
       link: '/dashboard/quotes'
     },
     {
-      icon: Tag, label: "Principles", value: brands.total,
+      icon: Tag, label: "Principals", value: brands.total,
       sub: `${categories.total} categories`,
       gradient: CARD_GRADIENTS[3],
-      link: '/dashboard/principles'
+      link: '/dashboard/principals'
     },
   ];
 

@@ -48,7 +48,7 @@ const NAV_ITEMS = [
 
   { to: "/dashboard/categories", label: "Category", Icon: FolderOpen },
 
-  { to: "/dashboard/principles", label: "Principles", Icon: BadgeCheck },
+  { to: "/dashboard/principals", label: "Principals", Icon: BadgeCheck },
 
   {
     label: "Products",
