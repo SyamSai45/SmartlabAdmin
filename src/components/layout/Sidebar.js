@@ -66,6 +66,7 @@ const NAV_ITEMS = [
     Icon: Home,
     isDropdown: true,
     children: [
+      { to: "/dashboard/home-popup", label: "Home Popup", icon: MonitorPlay },
       { to: "/dashboard/home-hero", label: "Home Hero", icon: MonitorPlay },
       { to: "/dashboard/home-about", label: "Home About", icon: Info },
       { to: "/dashboard/home-counts", label: "Home Counts", icon: BarChart3 },
@@ -93,7 +94,6 @@ const NAV_ITEMS = [
     Icon: BriefcaseBusiness,
     isDropdown: true,
     children: [
-      { to: "/dashboard/service-popup", label: "Service Popup", icon: MonitorPlay },
       { to: "/dashboard/service-home", label: "Service Home", icon: MonitorPlay },
       { to: "/dashboard/service-hero", label: "Service Hero", icon: Users },
       { to: "/dashboard/service-catalog", label: "Service Catalog", icon: Wrench },

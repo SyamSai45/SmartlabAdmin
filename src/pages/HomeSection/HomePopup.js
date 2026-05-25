@@ -12,7 +12,7 @@ const FontLink = () => (
   `}</style>
 );
 
-export default function ServicePopupManager() {
+export default function HomePopupManager() {
   const [popupData, setPopupData] = useState({
     image: '',
     isActive: true

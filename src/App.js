@@ -40,7 +40,7 @@ import { ContactHero } from "./pages/ContactHero";
 import { FooterAdmin } from "./pages/FooterAdmin";
 import { ViewProduct } from "./pages/products/SingleProductDetails";
 import { SuggestedProducts } from "./pages/products/SuggestedProducts";
-import ServicePopupManager from "./pages/ServiceSection/ServicePopup";
+import HomePopupManager from "./pages/HomeSection/HomePopup";
 import ServiceRequestManager from "./pages/ServiceRequestForm";
 import ResourceHero from "./pages/ResourseSection/ResourseHero";
 import ResourceArticles from "./pages/ResourseSection/ResourseArticles";
@@ -76,6 +76,7 @@ const AppRoutes = () => {
         <Route path="editproduct/:id" element={<ProductForm />} />
         <Route path='viewproduct/:id' element={<ViewProduct />} />
         <Route path='suggested-products' element={<SuggestedProducts />} />
+        <Route path="home-popup" element={<HomePopupManager />} />
         <Route path="home-hero" element={<HomeHero />} />
         <Route path="home-about" element={<HomeAbout />} />
         <Route path="home-counts" element={<HomeAchievements />} />
@@ -87,7 +88,6 @@ const AppRoutes = () => {
         <Route path="about-corevalues" element={<AboutCoreValues />} />
         <Route path="about-chooseus" element={<AboutChooseUs />} />
         <Route path="about-cta" element={<AboutCta />} />
-        <Route path="service-popup" element={<ServicePopupManager />} />
         <Route path="service-home" element={<ServiceHome />} />
         <Route path="service-hero" element={<ServiceHero />} />
         <Route path="service-catalog" element={<ServiceCatalog />} />
