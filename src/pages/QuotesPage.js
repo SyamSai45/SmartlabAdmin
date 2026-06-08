@@ -663,14 +663,7 @@ function GetQuote() {
 
             {/* Action Buttons */}
             <div className="flex gap-3 mt-6 pt-4 border-t border-slate-200">
-              <button
-                onClick={() => {
-                  window.location.href = `mailto:${selectedQuote.email}?subject=Quote Request - ${selectedQuote.productName}`;
-                }}
-                className="flex-1 btn btn-primary"
-              >
-                <Mail size={14} /> Send Email
-              </button>
+              
               <button
                 onClick={() => deleteQuote(selectedQuote._id)}
                 className="flex-1 btn btn-secondary !text-red-600 hover:!bg-red-50"
