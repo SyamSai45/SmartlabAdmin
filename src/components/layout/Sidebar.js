@@ -158,6 +158,15 @@ const NAV_ITEMS = [
   },
 
   {
+    label: "Application Sections",
+    Icon: BookOpen,
+    isDropdown: true,
+    children: [
+      { to: "/dashboard/application", label: "Application", icon: FileText },
+    ],
+  },
+
+  {
     label: "Footer Sections",
     Icon: PanelsTopLeft,
     isDropdown: true,
