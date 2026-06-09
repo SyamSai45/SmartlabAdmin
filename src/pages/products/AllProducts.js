@@ -113,7 +113,7 @@ export function AllProducts() {
     try {
       setLoading(true);
       const [productsRes, categoriesRes, brandsRes] = await Promise.all([
-        apiClient.get('/products'),
+        apiClient.get('/products/admin'),
         apiClient.get('/categories'),
         apiClient.get('/brands')
       ]);
@@ -150,15 +150,25 @@ export function AllProducts() {
     }
   };
 
-  const patch = async (id, payload) => {
-    try {
-      await apiClient.patch(`/products/${id}/toggle`, payload);
-      await fetchData();
-    } catch (err) {
-      console.error('patch:', err);
-      alert(err?.response?.data?.message || 'Failed to update product');
-    }
-  };
+  // Replace the existing patch function with this:
+
+const patch = async (id, payload) => {
+  try {
+    await apiClient.patch(`/products/${id}/toggle`, payload);
+    
+    // Update only the specific product in state without refetching everything
+    setProducts(prevProducts => 
+      prevProducts.map(product => 
+        product._id === id 
+          ? { ...product, ...payload }
+          : product
+      )
+    );
+  } catch (err) {
+    console.error('patch:', err);
+    alert(err?.response?.data?.message || 'Failed to update product');
+  }
+};
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
