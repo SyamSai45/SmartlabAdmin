@@ -125,7 +125,7 @@ const BrandsPage = () => {
   );
 
   const logoUrl = (logo) =>
-    logo ? `https://smartlabtechbackend-p5h6.onrender.com/${logo.replace(/\\/g, "/")}` : null;
+    logo ? `${logo.replace(/\\/g, "/")}` : null;
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
