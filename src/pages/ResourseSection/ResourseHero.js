@@ -32,7 +32,7 @@ export default function ResourceHero() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/hero', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/hero', {
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
       
@@ -77,7 +77,7 @@ export default function ResourceHero() {
       if (selectedFile) formData.append('image', selectedFile);
 
       const method = heroData.title ? 'PUT' : 'POST';
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/hero', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/hero', {
         method: method,
         headers: { 'Authorization': token ? `Bearer ${token}` : '' },
         body: formData
@@ -106,7 +106,7 @@ export default function ResourceHero() {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/hero', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/hero', {
         method: 'DELETE',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });

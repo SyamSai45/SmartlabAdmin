@@ -8,7 +8,7 @@ import {
   MousePointerClick, ListChecks, GripVertical
 } from 'lucide-react';
 
-const BASE_URL = 'https://smartlabtechbackend-p5h6.onrender.com/api/homepage';
+const BASE_URL = 'http://31.97.228.17:5101/api/homepage';
 
 /* ─── Toast ─── */
 const Toast = ({ message, type, onClose }) => {

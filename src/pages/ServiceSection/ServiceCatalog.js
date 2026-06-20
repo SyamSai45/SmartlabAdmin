@@ -32,7 +32,7 @@ function ServiceCatalog() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue', {
+      const response = await fetch('http://31.97.228.17:5101/api/servicepage/service-catalogue', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.status === 404) { setCatalog(null); return; }
@@ -51,7 +51,7 @@ function ServiceCatalog() {
     if (!cardForm.title.trim() || !cardForm.description.trim()) { showToast('Title and description required', 'error'); return; }
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue/cards', {
+      const response = await fetch('http://31.97.228.17:5101/api/servicepage/service-catalogue/cards', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(cardForm)
@@ -64,7 +64,7 @@ function ServiceCatalog() {
     if (editingCardIndex === null || !cardForm.title.trim()) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue/cards/${editingCardIndex}`, {
+      await fetch(`http://31.97.228.17:5101/api/servicepage/service-catalogue/cards/${editingCardIndex}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(cardForm)
@@ -76,7 +76,7 @@ function ServiceCatalog() {
   const deleteCard = async (index) => {
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue/cards/${index}`, {
+      await fetch(`http://31.97.228.17:5101/api/servicepage/service-catalogue/cards/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -89,7 +89,7 @@ function ServiceCatalog() {
     try {
       setSubmitting(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue', {
+      const response = await fetch('http://31.97.228.17:5101/api/servicepage/service-catalogue', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(formData)
@@ -102,7 +102,7 @@ function ServiceCatalog() {
     if (!window.confirm('Delete Service Catalog?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-catalogue', {
+      await fetch('http://31.97.228.17:5101/api/servicepage/service-catalogue', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

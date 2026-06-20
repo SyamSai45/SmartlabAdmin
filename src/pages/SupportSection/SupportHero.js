@@ -75,7 +75,7 @@ function SupportHero() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/hero', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/hero', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -157,7 +157,7 @@ function SupportHero() {
       fd.append('isActive', formData.isActive);
       if (imageFile) fd.append('image', imageFile);
       
-      const url = 'https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/hero';
+      const url = 'http://31.97.228.17:5101/api/supportpage/hero';
       const method = supportHero ? 'PUT' : 'POST';
       
       const response = await fetch(url, {
@@ -186,7 +186,7 @@ function SupportHero() {
     if (!window.confirm('Delete Support Hero section?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/hero', {
+      await fetch('http://31.97.228.17:5101/api/supportpage/hero', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -210,7 +210,7 @@ function SupportHero() {
       fd.append('email', formData.email);
       fd.append('isActive', !formData.isActive);
       
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/hero', {
+      await fetch('http://31.97.228.17:5101/api/supportpage/hero', {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` },
         body: fd

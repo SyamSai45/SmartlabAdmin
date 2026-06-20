@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FlaskConical, Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle } from 'lucide-react';
 
-const API_URL = 'https://smartlabtechbackend-p5h6.onrender.com/api/auth/login';
+const API_URL = 'http://31.97.228.17:5101/api/auth/login';
 
 export function LoginPage() {
   const navigate = useNavigate();

@@ -82,7 +82,7 @@ function AboutHero() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/about', {
+      const response = await fetch('http://31.97.228.17:5101/api/aboutpage/about', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -145,7 +145,7 @@ function AboutHero() {
       formDataToSend.append('isActive', formData.isActive);
       if (imageFile) formDataToSend.append('bgImage', imageFile);
       
-      const url = 'https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/about';
+      const url = 'http://31.97.228.17:5101/api/aboutpage/about';
       const method = heroData ? 'PUT' : 'POST';
       
       const response = await fetch(url, {
@@ -172,7 +172,7 @@ function AboutHero() {
     if (!window.confirm('Delete hero section?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/about', {
+      await fetch('http://31.97.228.17:5101/api/aboutpage/about', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -194,7 +194,7 @@ function AboutHero() {
       formDataToSend.append('description', heroData.description);
       formDataToSend.append('isActive', !heroData.isActive);
       
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/about', {
+      await fetch('http://31.97.228.17:5101/api/aboutpage/about', {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formDataToSend

@@ -31,7 +31,7 @@ function AboutChooseUs() {
   const fetchData = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/why-choose-us', {
+      const response = await fetch('http://31.97.228.17:5101/api/aboutpage/why-choose-us', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -79,7 +79,7 @@ function AboutChooseUs() {
       fd.append('isActive', form.isActive);
       if (imageFile) fd.append('image', imageFile);
 
-      const url = 'https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/why-choose-us';
+      const url = 'http://31.97.228.17:5101/api/aboutpage/why-choose-us';
       const method = section ? 'PUT' : 'POST';
 
       await fetch(url, { method, headers: { 'Authorization': `Bearer ${token}` }, body: fd });
@@ -98,7 +98,7 @@ function AboutChooseUs() {
     if (!newPoint.trim()) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/why-choose-us/points', {
+      await fetch('http://31.97.228.17:5101/api/aboutpage/why-choose-us/points', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ point: newPoint })
@@ -114,7 +114,7 @@ function AboutChooseUs() {
   const deletePoint = async (index) => {
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/why-choose-us/points/${index}`, {
+      await fetch(`http://31.97.228.17:5101/api/aboutpage/why-choose-us/points/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -129,7 +129,7 @@ function AboutChooseUs() {
     if (!window.confirm('Delete this section?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/why-choose-us', {
+      await fetch('http://31.97.228.17:5101/api/aboutpage/why-choose-us', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

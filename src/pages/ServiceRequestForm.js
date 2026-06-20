@@ -62,7 +62,7 @@ export default function ServiceRequestManager() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      let url = `https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/admin?page=${filters.page}&limit=${filters.limit}`;
+      let url = `http://31.97.228.17:5101/api/servicepage/admin?page=${filters.page}&limit=${filters.limit}`;
       if (filters.status) url += `&status=${filters.status}`;
       if (filters.search) url += `&search=${filters.search}`;
       
@@ -87,7 +87,7 @@ export default function ServiceRequestManager() {
   const fetchStats = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/admin/stats', {
+      const response = await fetch('http://31.97.228.17:5101/api/servicepage/admin/stats', {
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
       const data = await response.json();
@@ -101,7 +101,7 @@ export default function ServiceRequestManager() {
     setUpdatingStatus(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/admin/${id}/status`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/servicepage/admin/${id}/status`, {
         method: 'PUT',
         headers: {
           'Authorization': token ? `Bearer ${token}` : '',
@@ -129,8 +129,8 @@ export default function ServiceRequestManager() {
     try {
       const token = sessionStorage.getItem('token');
       const url = permanent 
-        ? `https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/admin/${id}/permanent`
-        : `https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/admin/${id}`;
+        ? `http://31.97.228.17:5101/api/servicepage/admin/${id}/permanent`
+        : `http://31.97.228.17:5101/api/servicepage/admin/${id}`;
       
       const response = await fetch(url, {
         method: 'DELETE',

@@ -26,7 +26,7 @@ function AboutCoreValues() {
   const fetchData = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/core-values', {
+      const response = await fetch('http://31.97.228.17:5101/api/aboutpage/core-values', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -52,7 +52,7 @@ function AboutCoreValues() {
     }
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/core-values', {
+      await fetch('http://31.97.228.17:5101/api/aboutpage/core-values', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ title: section.title, tag: section.tag })
@@ -70,7 +70,7 @@ function AboutCoreValues() {
     }
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/core-values/add', {
+      await fetch('http://31.97.228.17:5101/api/aboutpage/core-values/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(form)
@@ -86,7 +86,7 @@ function AboutCoreValues() {
   const deleteValue = async (index) => {
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/core-values/${index}`, {
+      await fetch(`http://31.97.228.17:5101/api/aboutpage/core-values/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

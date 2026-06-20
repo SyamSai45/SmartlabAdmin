@@ -39,7 +39,7 @@ export default function ResourceArticles() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/articles', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/articles', {
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
       
@@ -66,7 +66,7 @@ export default function ResourceArticles() {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/articles', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/articles', {
         method: 'PUT',
         headers: {
           'Authorization': token ? `Bearer ${token}` : '',
@@ -107,8 +107,8 @@ export default function ResourceArticles() {
       if (selectedFile) formDataToSend.append('image', selectedFile);
 
       const url = editingIndex !== null 
-        ? `https://smartlabtechbackend-p5h6.onrender.com/api/resources/articles/${editingIndex}`
-        : 'https://smartlabtechbackend-p5h6.onrender.com/api/resources/articles/add';
+        ? `http://31.97.228.17:5101/api/resources/articles/${editingIndex}`
+        : 'http://31.97.228.17:5101/api/resources/articles/add';
       const method = editingIndex !== null ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -136,7 +136,7 @@ export default function ResourceArticles() {
     
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/resources/articles/${index}`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/resources/articles/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });

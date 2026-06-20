@@ -272,7 +272,7 @@ export function BlogList({ onEdit }) {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      let url = 'https://smartlabtechbackend-p5h6.onrender.com/api/blogs/all';
+      let url = 'http://31.97.228.17:5101/api/blogs/all';
       const params = new URLSearchParams();
       if (searchTerm) params.append('search', searchTerm);
       if (filterCategory) params.append('category', filterCategory);
@@ -298,7 +298,7 @@ export function BlogList({ onEdit }) {
   const fetchCategories = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/categories', {
+      const response = await fetch('http://31.97.228.17:5101/api/blogs/categories', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -311,7 +311,7 @@ export function BlogList({ onEdit }) {
   const fetchTags = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/tags', {
+      const response = await fetch('http://31.97.228.17:5101/api/blogs/tags', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -329,7 +329,7 @@ export function BlogList({ onEdit }) {
     if (!window.confirm('Are you sure you want to delete this blog?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/blogs/${id}`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/blogs/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -346,7 +346,7 @@ export function BlogList({ onEdit }) {
   const viewBlog = async (id) => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/blogs/${id}`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/blogs/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();

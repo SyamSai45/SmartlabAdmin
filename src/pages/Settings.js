@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 /* ── API base ── */
-const BASE = 'https://smartlabtechbackend-p5h6.onrender.com/api/auth';
+const BASE = 'http://31.97.228.17:5101/api/auth';
 const getToken = () => sessionStorage.getItem('token');
 
 /* ── Fonts ── */

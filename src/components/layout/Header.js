@@ -11,7 +11,7 @@ import { useAuth } from '../../context/AuthContext';
 import { format } from 'date-fns';
 
 /* ── Constants ── */
-const BASE = 'https://smartlabtechbackend-p5h6.onrender.com/api';
+const BASE = 'http://31.97.228.17:5101/api';
 const getToken = () => sessionStorage.getItem('token');
 
 const PAGE_TITLES = {

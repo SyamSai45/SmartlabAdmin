@@ -45,9 +45,9 @@ export default function NotificationsPage() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      let url = 'https://smartlabtechbackend-p5h6.onrender.com/api/notifications';
+      let url = 'http://31.97.228.17:5101/api/notifications';
       if (selectedType !== 'all') {
-        url = `https://smartlabtechbackend-p5h6.onrender.com/api/notifications/type/${selectedType}`;
+        url = `http://31.97.228.17:5101/api/notifications/type/${selectedType}`;
       }
       
       const response = await fetch(url, {
@@ -73,7 +73,7 @@ export default function NotificationsPage() {
   const fetchUnreadCount = useCallback(async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/notifications/unread/count', {
+      const response = await fetch('http://31.97.228.17:5101/api/notifications/unread/count', {
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
       const data = await response.json();
@@ -100,7 +100,7 @@ export default function NotificationsPage() {
     setActionLoading(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/notifications/${id}/read`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/notifications/${id}/read`, {
         method: 'PUT',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
@@ -121,7 +121,7 @@ export default function NotificationsPage() {
     setActionLoading(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/notifications/read-all', {
+      const response = await fetch('http://31.97.228.17:5101/api/notifications/read-all', {
         method: 'PUT',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
@@ -143,8 +143,8 @@ export default function NotificationsPage() {
     try {
       const token = sessionStorage.getItem('token');
       const url = permanent 
-        ? `https://smartlabtechbackend-p5h6.onrender.com/api/notifications/${id}/permanent`
-        : `https://smartlabtechbackend-p5h6.onrender.com/api/notifications/${id}`;
+        ? `http://31.97.228.17:5101/api/notifications/${id}/permanent`
+        : `http://31.97.228.17:5101/api/notifications/${id}`;
       const response = await fetch(url, {
         method: 'DELETE',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
@@ -167,7 +167,7 @@ export default function NotificationsPage() {
     setActionLoading(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/notifications/read/all', {
+      const response = await fetch('http://31.97.228.17:5101/api/notifications/read/all', {
         method: 'DELETE',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });

@@ -195,7 +195,7 @@ export function SuggestedProducts() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/products/suggestions', {
+      const response = await fetch('http://31.97.228.17:5101/api/products/suggestions', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -214,7 +214,7 @@ export function SuggestedProducts() {
   const fetchAllProducts = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/products', {
+      const response = await fetch('http://31.97.228.17:5101/api/products', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -235,7 +235,7 @@ export function SuggestedProducts() {
     try {
       setSubmitting(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/products/suggestions', {
+      const response = await fetch('http://31.97.228.17:5101/api/products/suggestions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -263,7 +263,7 @@ export function SuggestedProducts() {
     
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/products/suggestions/${productId}`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/products/suggestions/${productId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -283,7 +283,7 @@ export function SuggestedProducts() {
   const toggleSuggestionStatus = async (productId) => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/products/suggestions/${productId}/toggle`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/products/suggestions/${productId}/toggle`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -309,7 +309,7 @@ export function SuggestedProducts() {
     try {
       setBulkLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/products/suggestions/bulk', {
+      const response = await fetch('http://31.97.228.17:5101/api/products/suggestions/bulk', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

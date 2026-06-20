@@ -26,7 +26,7 @@ function AboutCards() {
   const fetchCards = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/cards', {
+      const response = await fetch('http://31.97.228.17:5101/api/aboutpage/cards', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -51,14 +51,14 @@ function AboutCards() {
     try {
       const token = sessionStorage.getItem('token');
       if (editingIndex !== null) {
-        await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/cards/${editingIndex}`, {
+        await fetch(`http://31.97.228.17:5101/api/aboutpage/cards/${editingIndex}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify(form)
         });
         showToast('Card updated successfully', 'success');
       } else {
-        await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/cards', {
+        await fetch('http://31.97.228.17:5101/api/aboutpage/cards', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify(form)
@@ -77,7 +77,7 @@ function AboutCards() {
     if (!window.confirm('Delete this card?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/cards/${index}`, {
+      await fetch(`http://31.97.228.17:5101/api/aboutpage/cards/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

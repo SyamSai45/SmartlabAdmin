@@ -33,7 +33,7 @@ export default function HomePopupManager() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/popup', {
+      const response = await fetch('http://31.97.228.17:5101/api/servicepage/popup', {
         headers: {
           'Authorization': token ? `Bearer ${token}` : '',
           'Content-Type': 'application/json'
@@ -86,8 +86,8 @@ export default function HomePopupManager() {
       formData.append('isActive', popupData.isActive);
 
       const url = popupData.image && !selectedFile 
-        ? 'https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/popup'
-        : 'https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/popup';
+        ? 'http://31.97.228.17:5101/api/servicepage/popup'
+        : 'http://31.97.228.17:5101/api/servicepage/popup';
       
       const method = popupData.image ? 'PUT' : 'POST';
 
@@ -124,7 +124,7 @@ export default function HomePopupManager() {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/popup', {
+      const response = await fetch('http://31.97.228.17:5101/api/servicepage/popup', {
         method: 'DELETE',
         headers: {
           'Authorization': token ? `Bearer ${token}` : '',

@@ -25,7 +25,7 @@ import {
   Shield
 } from "lucide-react";
 
-const API = "https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/hero";
+const API = "http://31.97.228.17:5101/api/aboutpage/hero";
 
 // Toast Notification Component
 const Toast = ({ message, type, onClose }) => {

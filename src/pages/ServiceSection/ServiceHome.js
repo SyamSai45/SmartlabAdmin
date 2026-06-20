@@ -73,7 +73,7 @@ function ServiceHome() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-home', {
+      const response = await fetch('http://31.97.228.17:5101/api/servicepage/service-home', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -146,7 +146,7 @@ function ServiceHome() {
       fd.append('isActive', formData.isActive);
       if (imageFile) fd.append('image', imageFile);
       
-      const url = 'https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-home';
+      const url = 'http://31.97.228.17:5101/api/servicepage/service-home';
       const method = serviceHome ? 'PUT' : 'POST';
       
       const response = await fetch(url, {
@@ -175,7 +175,7 @@ function ServiceHome() {
     if (!window.confirm('Delete Service Home section?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-home', {
+      await fetch('http://31.97.228.17:5101/api/servicepage/service-home', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -197,7 +197,7 @@ function ServiceHome() {
       fd.append('description', formData.description);
       fd.append('isActive', !formData.isActive);
       
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/servicepage/service-home', {
+      await fetch('http://31.97.228.17:5101/api/servicepage/service-home', {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` },
         body: fd

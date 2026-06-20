@@ -95,7 +95,7 @@ export function BlogForm({ blog, onSuccess, onCancel }) {
   const fetchCategories = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/categories', {
+      const response = await fetch('http://31.97.228.17:5101/api/blogs/categories', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -108,7 +108,7 @@ export function BlogForm({ blog, onSuccess, onCancel }) {
   const fetchTags = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/tags', {
+      const response = await fetch('http://31.97.228.17:5101/api/blogs/tags', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -176,7 +176,7 @@ export function BlogForm({ blog, onSuccess, onCancel }) {
       if (imageFiles.mainImage) fd.append('mainImage', imageFiles.mainImage);
       if (imageFiles.authorImage) fd.append('authorImage', imageFiles.authorImage);
       
-      const url = blog ? `https://smartlabtechbackend-p5h6.onrender.com/api/blogs/${blog._id}` : 'https://smartlabtechbackend-p5h6.onrender.com/api/blogs';
+      const url = blog ? `http://31.97.228.17:5101/api/blogs/${blog._id}` : 'http://31.97.228.17:5101/api/blogs';
       const method = blog ? 'PUT' : 'POST';
       
       const response = await fetch(url, {

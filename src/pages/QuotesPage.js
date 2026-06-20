@@ -262,7 +262,7 @@ function GetQuote() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      let url = 'https://smartlabtechbackend-p5h6.onrender.com/api/quotes/admin/quotes';
+      let url = 'http://31.97.228.17:5101/api/quotes/admin/quotes';
 
       if (filterStatus !== 'all') {
         url += `?status=${filterStatus}`;
@@ -287,7 +287,7 @@ function GetQuote() {
   const fetchStats = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/quotes/admin/stats', {
+      const response = await fetch('http://31.97.228.17:5101/api/quotes/admin/stats', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -308,7 +308,7 @@ function GetQuote() {
     try {
       setUpdating(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/quotes/admin/quotes/${id}`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/quotes/admin/quotes/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -341,7 +341,7 @@ function GetQuote() {
 
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/quotes/admin/quotes/${id}`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/quotes/admin/quotes/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

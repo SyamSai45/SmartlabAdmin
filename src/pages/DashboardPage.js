@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "https://smartlabtechbackend-p5h6.onrender.com/api/dashboard/stats";
+const API_URL = "http://31.97.228.17:5101/api/dashboard/stats";
 
 /* ─── Helpers ─── */
 function fmtDate(d) {

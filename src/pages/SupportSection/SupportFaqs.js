@@ -32,7 +32,7 @@ function SupportFaq() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/faq', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/faq', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.status === 404) { setFaq(null); return; }
@@ -51,7 +51,7 @@ function SupportFaq() {
     if (!faqForm.question.trim() || !faqForm.answer.trim()) { showToast('Question and answer required', 'error'); return; }
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/faq/add', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/faq/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(faqForm)
@@ -64,7 +64,7 @@ function SupportFaq() {
     if (editingFaqIndex === null || !faqForm.question.trim()) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/faq/${editingFaqIndex}`, {
+      await fetch(`http://31.97.228.17:5101/api/supportpage/faq/${editingFaqIndex}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(faqForm)
@@ -76,7 +76,7 @@ function SupportFaq() {
   const deleteFaq = async (index) => {
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/faq/${index}`, {
+      await fetch(`http://31.97.228.17:5101/api/supportpage/faq/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -89,7 +89,7 @@ function SupportFaq() {
     try {
       setSubmitting(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/faq', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/faq', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(formData)
@@ -102,7 +102,7 @@ function SupportFaq() {
     if (!window.confirm('Delete FAQ section?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/faq', {
+      await fetch('http://31.97.228.17:5101/api/supportpage/faq', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -114,7 +114,7 @@ function SupportFaq() {
     if (!faq) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/faq', {
+      await fetch('http://31.97.228.17:5101/api/supportpage/faq', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ ...formData, isActive: !formData.isActive })

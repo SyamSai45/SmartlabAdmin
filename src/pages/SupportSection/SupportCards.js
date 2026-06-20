@@ -27,7 +27,7 @@ function SupportCards() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/cards', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/cards', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -60,14 +60,14 @@ function SupportCards() {
     try {
       const token = sessionStorage.getItem('token');
       if (editingIndex !== null) {
-        await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/cards/${editingIndex}`, {
+        await fetch(`http://31.97.228.17:5101/api/supportpage/cards/${editingIndex}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify(form)
         });
         showToast('Card updated successfully', 'success');
       } else {
-        await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/cards', {
+        await fetch('http://31.97.228.17:5101/api/supportpage/cards', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify(form)
@@ -86,7 +86,7 @@ function SupportCards() {
     if (!window.confirm('Delete this card?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/cards/${index}`, {
+      await fetch(`http://31.97.228.17:5101/api/supportpage/cards/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

@@ -24,7 +24,7 @@ export default function ResourceDocs() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/pdfs', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/pdfs', {
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
       if (response.ok) {
@@ -41,7 +41,7 @@ export default function ResourceDocs() {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/pdfs', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/pdfs', {
         method: 'PUT',
         headers: { 'Authorization': token ? `Bearer ${token}` : '', 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: sectionData.title, tag: sectionData.tag, description: sectionData.description, pdfs: pdfs, isActive: sectionData.isActive })
@@ -59,7 +59,7 @@ export default function ResourceDocs() {
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
       formDataToSend.append('file', formData.file);
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/pdfs/add', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/pdfs/add', {
         method: 'POST',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' },
         body: formDataToSend
@@ -73,7 +73,7 @@ export default function ResourceDocs() {
     if (!window.confirm('Delete this PDF?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/resources/pdfs/${index}`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/resources/pdfs/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });

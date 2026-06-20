@@ -36,7 +36,7 @@ const Toast = ({ message, type, onClose }) => {
 const FooterPreviewModal = ({ footer, onClose }) => {
   if (!footer) return null;
 
-  const BASE = 'https://smartlabtechbackend-p5h6.onrender.com';
+  const BASE = 'http://31.97.228.17:5101';
 
   const socialIcons = [
     { key: 'linkedin',  Icon: FaLinkedin,  url: footer.socialMedia?.linkedin },
@@ -285,7 +285,7 @@ const ProductSelector = ({ selectedProducts, onChange }) => {
       try {
         setLoading(true);
         const token = sessionStorage.getItem('token');
-        const res = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/products/', { headers: { 'Authorization': `Bearer ${token}` } });
+        const res = await fetch('http://31.97.228.17:5101/api/products/', { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await res.json();
         if (data.success) setAllProducts(data.data || []);
       } catch (e) { console.error(e); }
@@ -470,7 +470,7 @@ export function FooterAdmin() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const res = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/footer', { headers: { 'Authorization': `Bearer ${token}` } });
+      const res = await fetch('http://31.97.228.17:5101/api/footer', { headers: { 'Authorization': `Bearer ${token}` } });
       if (res.status === 404) { setFooter(null); return; }
       const data = await res.json();
       if (data.success && data.data) {
@@ -533,7 +533,7 @@ export function FooterAdmin() {
       if (policyFiles.cookiePolicyFile) fd.append('cookiePolicyFile', policyFiles.cookiePolicyFile);
       if (policyFiles.termsOfServiceFile) fd.append('termsOfServiceFile', policyFiles.termsOfServiceFile);
 
-      const res = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/footer', {
+      const res = await fetch('http://31.97.228.17:5101/api/footer', {
         method: footer ? 'PUT' : 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: fd
@@ -555,7 +555,7 @@ export function FooterAdmin() {
     if (!window.confirm('Delete Footer? This cannot be undone.')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/footer', { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      await fetch('http://31.97.228.17:5101/api/footer', { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       setFooter(null);
       setFormData(defaultForm);
       showToast('Footer deleted successfully', 'success');

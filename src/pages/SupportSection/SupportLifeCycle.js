@@ -31,7 +31,7 @@ function SupportLifeCycle() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/life-cycle', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/life-cycle', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.status === 404) { setLifeCycle(null); return; }
@@ -50,7 +50,7 @@ function SupportLifeCycle() {
     if (!newPoint.trim()) { showToast('Please enter a point', 'error'); return; }
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/life-cycle/points', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/life-cycle/points', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ point: newPoint })
@@ -62,7 +62,7 @@ function SupportLifeCycle() {
   const deletePoint = async (index) => {
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/life-cycle/points/${index}`, {
+      await fetch(`http://31.97.228.17:5101/api/supportpage/life-cycle/points/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -75,7 +75,7 @@ function SupportLifeCycle() {
     try {
       setSubmitting(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/life-cycle', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/life-cycle', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(formData)
@@ -88,7 +88,7 @@ function SupportLifeCycle() {
     if (!window.confirm('Delete Life Cycle section?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/life-cycle', {
+      await fetch('http://31.97.228.17:5101/api/supportpage/life-cycle', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -100,7 +100,7 @@ function SupportLifeCycle() {
     if (!lifeCycle) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/life-cycle', {
+      await fetch('http://31.97.228.17:5101/api/supportpage/life-cycle', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ ...formData, isActive: !formData.isActive })

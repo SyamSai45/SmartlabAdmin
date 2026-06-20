@@ -27,7 +27,7 @@ export default function ResourceCaseStudy() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/case-studies', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/case-studies', {
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
       if (response.ok) {
@@ -44,7 +44,7 @@ export default function ResourceCaseStudy() {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/case-studies', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/case-studies', {
         method: 'PUT',
         headers: { 'Authorization': token ? `Bearer ${token}` : '', 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: sectionData.title, tag: sectionData.tag, description: sectionData.description, caseStudies: caseStudies, isActive: sectionData.isActive })
@@ -66,7 +66,7 @@ export default function ResourceCaseStudy() {
       formDataToSend.append('isActive', formData.isActive);
       if (selectedFile) formDataToSend.append('image', selectedFile);
 
-      const url = editingIndex !== null ? `https://smartlabtechbackend-p5h6.onrender.com/api/resources/case-studies/${editingIndex}` : 'https://smartlabtechbackend-p5h6.onrender.com/api/resources/case-studies/add';
+      const url = editingIndex !== null ? `http://31.97.228.17:5101/api/resources/case-studies/${editingIndex}` : 'http://31.97.228.17:5101/api/resources/case-studies/add';
       const method = editingIndex !== null ? 'PUT' : 'POST';
 
       const response = await fetch(url, { method: method, headers: { 'Authorization': token ? `Bearer ${token}` : '' }, body: formDataToSend });
@@ -79,7 +79,7 @@ export default function ResourceCaseStudy() {
     if (!window.confirm('Delete this case study?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/resources/case-studies/${index}`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/resources/case-studies/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });

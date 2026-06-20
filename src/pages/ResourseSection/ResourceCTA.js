@@ -22,7 +22,7 @@ export default function ResourceCTA() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/cta', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/cta', {
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
       if (response.ok) {
@@ -39,7 +39,7 @@ export default function ResourceCTA() {
     setSuccess(null);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/cta', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/cta', {
         method: 'PUT',
         headers: { 'Authorization': token ? `Bearer ${token}` : '', 'Content-Type': 'application/json' },
         body: JSON.stringify(ctaData)
@@ -55,7 +55,7 @@ export default function ResourceCTA() {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/cta', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/cta', {
         method: 'DELETE',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });

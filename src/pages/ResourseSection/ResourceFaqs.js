@@ -25,7 +25,7 @@ export default function ResourceFaqs() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/faqs', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/faqs', {
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
       if (response.ok) {
@@ -42,7 +42,7 @@ export default function ResourceFaqs() {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/faqs', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/faqs', {
         method: 'PUT',
         headers: { 'Authorization': token ? `Bearer ${token}` : '', 'Content-Type': 'application/json' },
         body: JSON.stringify({ tag: sectionData.tag, title: sectionData.title, description: sectionData.description, faqs: faqs, isActive: sectionData.isActive })
@@ -57,7 +57,7 @@ export default function ResourceFaqs() {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const url = editingIndex !== null ? `https://smartlabtechbackend-p5h6.onrender.com/api/resources/faqs/${editingIndex}` : 'https://smartlabtechbackend-p5h6.onrender.com/api/resources/faqs/add';
+      const url = editingIndex !== null ? `http://31.97.228.17:5101/api/resources/faqs/${editingIndex}` : 'http://31.97.228.17:5101/api/resources/faqs/add';
       const method = editingIndex !== null ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -74,7 +74,7 @@ export default function ResourceFaqs() {
     if (!window.confirm('Delete this FAQ?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/resources/faqs/${index}`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/resources/faqs/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });

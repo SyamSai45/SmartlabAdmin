@@ -73,7 +73,7 @@ export function ContactHero() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/contacts/hero', {
+      const response = await fetch('http://31.97.228.17:5101/api/contacts/hero', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -142,7 +142,7 @@ export function ContactHero() {
       fd.append('isActive', formData.isActive);
       if (imageFile) fd.append('image', imageFile);
       
-      const url = 'https://smartlabtechbackend-p5h6.onrender.com/api/contacts/hero';
+      const url = 'http://31.97.228.17:5101/api/contacts/hero';
       const method = contactHero ? 'PUT' : 'POST';
       
       const response = await fetch(url, {
@@ -172,7 +172,7 @@ export function ContactHero() {
     if (!window.confirm('Delete Contact Hero section?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/contacts/hero', {
+      await fetch('http://31.97.228.17:5101/api/contacts/hero', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -194,7 +194,7 @@ export function ContactHero() {
       fd.append('description', formData.description);
       fd.append('isActive', !formData.isActive);
       
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/contacts/hero', {
+      await fetch('http://31.97.228.17:5101/api/contacts/hero', {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` },
         body: fd

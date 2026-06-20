@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // ─── Constants ─────────────────────────────────────────────────────────────
-const API_BASE_URL = 'https://smartlabtechbackend-p5h6.onrender.com/api';
-const STATIC_BASE_URL = 'https://smartlabtechbackend-p5h6.onrender.com';
+const API_BASE_URL = 'http://31.97.228.17:5101/api';
+const STATIC_BASE_URL = 'http://31.97.228.17:5101';
 
 // ─── Helper Functions ──────────────────────────────────────────────────────
 const imgUrl = (path) => {

@@ -73,7 +73,7 @@ export function BlogHero() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs', {
+      const response = await fetch('http://31.97.228.17:5101/api/blogs', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -144,7 +144,7 @@ export function BlogHero() {
       fd.append('isActive', formData.isActive);
       if (imageFile) fd.append('image', imageFile);
       
-      const url = 'https://smartlabtechbackend-p5h6.onrender.com/api/blogs/hero';
+      const url = 'http://31.97.228.17:5101/api/blogs/hero';
       const method = blogHero ? 'PUT' : 'POST';
       
       const response = await fetch(url, {
@@ -174,7 +174,7 @@ export function BlogHero() {
     if (!window.confirm('Delete Blog Hero section?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/hero', {
+      await fetch('http://31.97.228.17:5101/api/blogs/hero', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -197,7 +197,7 @@ export function BlogHero() {
       fd.append('isActive', !formData.isActive);
       if (imageFile) fd.append('image', imageFile);
       
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/blogs/hero', {
+      await fetch('http://31.97.228.17:5101/api/blogs/hero', {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` },
         body: fd

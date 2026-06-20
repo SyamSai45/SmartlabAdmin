@@ -27,7 +27,7 @@ function AboutCta() {
   const fetchData = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/cta', {
+      const response = await fetch('http://31.97.228.17:5101/api/aboutpage/cta', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await response.json();
@@ -60,7 +60,7 @@ function AboutCta() {
     try {
       setSubmitting(true);
       const token = sessionStorage.getItem('token');
-      const url = 'https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/cta';
+      const url = 'http://31.97.228.17:5101/api/aboutpage/cta';
       const method = ctaData ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -85,7 +85,7 @@ function AboutCta() {
     if (!window.confirm('Delete CTA section?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/cta', {
+      await fetch('http://31.97.228.17:5101/api/aboutpage/cta', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -101,7 +101,7 @@ function AboutCta() {
     if (!ctaData) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/aboutpage/cta', {
+      await fetch('http://31.97.228.17:5101/api/aboutpage/cta', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ ...form, isActive: !form.isActive })

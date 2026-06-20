@@ -25,7 +25,7 @@ export default function ResourceAchievements() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/achievements', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/achievements', {
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });
       if (response.ok) {
@@ -42,7 +42,7 @@ export default function ResourceAchievements() {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/resources/achievements', {
+      const response = await fetch('http://31.97.228.17:5101/api/resources/achievements', {
         method: 'PUT',
         headers: { 'Authorization': token ? `Bearer ${token}` : '', 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: sectionData.title, tag: sectionData.tag, description: sectionData.description, achievements: achievements, isActive: sectionData.isActive })
@@ -57,7 +57,7 @@ export default function ResourceAchievements() {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const url = editingIndex !== null ? `https://smartlabtechbackend-p5h6.onrender.com/api/resources/achievements/${editingIndex}` : 'https://smartlabtechbackend-p5h6.onrender.com/api/resources/achievements/add';
+      const url = editingIndex !== null ? `http://31.97.228.17:5101/api/resources/achievements/${editingIndex}` : 'http://31.97.228.17:5101/api/resources/achievements/add';
       const method = editingIndex !== null ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -74,7 +74,7 @@ export default function ResourceAchievements() {
     if (!window.confirm('Delete this achievement?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/resources/achievements/${index}`, {
+      const response = await fetch(`http://31.97.228.17:5101/api/resources/achievements/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': token ? `Bearer ${token}` : '' }
       });

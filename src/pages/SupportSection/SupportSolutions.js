@@ -32,7 +32,7 @@ function SupportSolutions() {
     try {
       setLoading(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/solutions', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/solutions', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.status === 404) { setSolutions(null); return; }
@@ -51,7 +51,7 @@ function SupportSolutions() {
     if (!cardForm.title.trim() || !cardForm.description.trim()) { showToast('Title and description required', 'error'); return; }
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/solutions/cards', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/solutions/cards', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(cardForm)
@@ -64,7 +64,7 @@ function SupportSolutions() {
     if (editingCardIndex === null || !cardForm.title.trim()) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/solutions/cards/${editingCardIndex}`, {
+      await fetch(`http://31.97.228.17:5101/api/supportpage/solutions/cards/${editingCardIndex}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(cardForm)
@@ -76,7 +76,7 @@ function SupportSolutions() {
   const deleteCard = async (index) => {
     try {
       const token = sessionStorage.getItem('token');
-      await fetch(`https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/solutions/cards/${index}`, {
+      await fetch(`http://31.97.228.17:5101/api/supportpage/solutions/cards/${index}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -89,7 +89,7 @@ function SupportSolutions() {
     try {
       setSubmitting(true);
       const token = sessionStorage.getItem('token');
-      const response = await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/solutions', {
+      const response = await fetch('http://31.97.228.17:5101/api/supportpage/solutions', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(formData)
@@ -102,7 +102,7 @@ function SupportSolutions() {
     if (!window.confirm('Delete Solutions section?')) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/solutions', {
+      await fetch('http://31.97.228.17:5101/api/supportpage/solutions', {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -114,7 +114,7 @@ function SupportSolutions() {
     if (!solutions) return;
     try {
       const token = sessionStorage.getItem('token');
-      await fetch('https://smartlabtechbackend-p5h6.onrender.com/api/supportpage/solutions', {
+      await fetch('http://31.97.228.17:5101/api/supportpage/solutions', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ ...formData, isActive: !formData.isActive })
